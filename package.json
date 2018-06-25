@@ -1,7 +1,7 @@
 {
   "name": "elite-sheet",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": ".      /client/src/index.js",
   "license": "MIT",
   "scripts": {
     "build": "neutrino build",
