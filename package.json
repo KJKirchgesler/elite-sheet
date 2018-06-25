@@ -1,25 +1,36 @@
 {
   "name": "elite-sheet",
   "version": "1.0.0",
-  "main": ".      /client/src/index.js",
-  "license": "MIT",
+  "description": "An app tracking financial transactions between two companies",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "build": "neutrino build",
-    "start": "neutrino start",
-    "lint": "neutrino lint",
-    "test": "neutrino test"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KJKirchgesler/elite-sheet.git"
+  },
+  "keywords": [
+    "transactions",
+    "invoices",
+    "accounts",
+    "payable"
+  ],
+  "author": "Jon-Erik Chandler, Ezdehar Jaber, Kristen Kirchgesler, Chris Morrissey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KJKirchgesler/elite-sheet/issues"
+  },
+  "homepage": "https://github.com/KJKirchgesler/elite-sheet#readme",
   "dependencies": {
-    "prop-types": "^15.6.2",
+    "@zeit/next-css": "^0.2.0",
+    "express": "^4.16.3",
+    "next": "^6.0.3",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-hot-loader": "^4.3.3"
-  },
-  "devDependencies": {
-    "@neutrinojs/jest": "^8.2.3",
-    "@neutrinojs/react": "^8.2.3",
-    "@neutrinojs/react-components": "^8.2.3",
-    "@neutrinojs/standardjs": "^8.2.3",
-    "neutrino": "^8.2.3"
+    "react-dom": "^16.4.1"
   }
 }
