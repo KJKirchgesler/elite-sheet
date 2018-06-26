@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     },
 
     userIsCreator: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BOOLEAN,
       allowNull: false
     }
   });

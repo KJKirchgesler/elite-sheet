@@ -28,7 +28,7 @@ appnext.prepare()
         return handle(req, res);
     })
 
-    db.sequelize.sync({force: true}).then(function() {
+    db.sequelize.sync().then(function() {
       server.listen(port, (err) => {
         if (err) throw err;
         console.log(`Ready on http://localhost:${port}`);
