@@ -7,6 +7,10 @@ module.exports = function(sequelize, DataTypes) {
     },
 
   });
+
+  Sheet.associate = function(models) {
+  	Sheet.hasMany(models.Transaction);
+  }
   
   return Sheet;
 };

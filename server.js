@@ -21,18 +21,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 appnext.prepare()
-    .then(() => {
-        const server = express();
+  .then(() => {
+    const server = express();
 
-        server.get('*', (req, res) => {
-            return handle(req, res);
-        })
+    server.get('*', (req, res) => {
+        return handle(req, res);
+    })
 
-        db.sequelize.sync({force: true}).then(function() {
-	        server.listen(port, (err) => {
-	            if (err) throw err;
-	            console.log(`Ready on http://localhost:${port}`);
-	        });
-	      });
+    db.sequelize.sync({force: true}).then(function() {
+      server.listen(port, (err) => {
+        if (err) throw err;
+        console.log(`Ready on http://localhost:${port}`);
+      });
+    });
 });
 

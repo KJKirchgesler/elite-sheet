@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -81,7 +81,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_link__ = __webpack_require__("next/link");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_link___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_link__);
-var _jsxFileName = "C:\\Users\\chris\\Desktop\\School\\bootcamp\\homework\\elite-sheet\\pages\\index.js";
+var _jsxFileName = "C:\\Users\\symph\\All Coding Folders\\project-3\\elite-sheet\\pages\\index.js";
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
@@ -133,7 +133,7 @@ var _jsxFileName = "C:\\Users\\chris\\Desktop\\School\\bootcamp\\homework\\elite
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./pages/index.js");
