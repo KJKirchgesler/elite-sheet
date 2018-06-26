@@ -2,7 +2,7 @@ module.exports =
 
         __NEXT_REGISTER_PAGE('/account', function() {
           var comp = 
-      webpackJsonp([7],{
+      webpackJsonp([4],{
 
 /***/ "./node_modules/@babel/runtime/core-js/json/stringify.js":
 /***/ (function(module, exports, __webpack_require__) {
@@ -1007,7 +1007,7 @@ var _default = function _default() {
 
 /***/ }),
 
-/***/ 6:
+/***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./pages/account.js");
@@ -1015,7 +1015,7 @@ module.exports = __webpack_require__("./pages/account.js");
 
 /***/ })
 
-},[6])
+},[3])
           return { page: comp.default }
         })
       ;
