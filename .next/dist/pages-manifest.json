@@ -1,1 +1,1 @@
-{"/_app":"bundles/pages/_app.js","/_error":"bundles/pages/_error.js","/_document":"bundles/pages/_document.js"}
+{"/index":"bundles\\pages\\index.js","/signup":"bundles\\pages\\signup.js","/login":"bundles\\pages\\login.js","/account":"bundles\\pages\\account.js","/_app":"bundles\\pages\\_app.js","/_error":"bundles\\pages\\_error.js","/_document":"bundles\\pages\\_document.js","/":"bundles\\pages\\index.js"}
