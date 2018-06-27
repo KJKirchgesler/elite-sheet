@@ -1,43 +1,16 @@
 {
-  "name": "elite-sheet",
-  "version": "1.0.0",
-  "description": "An app tracking financial transactions between two companies",
-  "main": "server.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KJKirchgesler/elite-sheet.git"
-  },
-  "keywords": [
-    "transactions",
-    "invoices",
-    "accounts",
-    "payable"
-  ],
-  "author": "Jon-Erik Chandler, Ezdehar Jaber, Kristen Kirchgesler, Chris Morrissey",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/KJKirchgesler/elite-sheet/issues"
-  },
-  "homepage": "https://github.com/KJKirchgesler/elite-sheet#readme",
+  "name": "elitesheets2",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "@zeit/next-css": "^0.2.0",
-    "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
-    "express-session": "^1.15.6",
-    "mysql2": "^1.5.3",
-    "next": "^6.0.3",
-    "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "sequelize": "^4.38.0"
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
