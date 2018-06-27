@@ -6,6 +6,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
 
+    companyId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+
     invoiceNumber: {
       type: DataTypes.STRING,
       allowNull: false
@@ -22,14 +27,6 @@ module.exports = function(sequelize, DataTypes) {
     }
 
   });
-
-  Transaction.associate = function(models) {
-  	Transaction.belongsTo(models.Sheet, {
-      foreignKey: {
-        allowNull: true
-      }
-    });
-  }
   
   return Transaction;
 };

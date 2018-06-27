@@ -1,6 +1,10 @@
 module.exports = function(sequelize, DataTypes) {
   var UserSheet = sequelize.define("UserSheet", {
-    // The email cannot be null, and must be a proper email before creation
+    userSheetId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
 
     userId: {
       type: DataTypes.INTEGER,
@@ -13,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
 
     userIsCreator: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   });

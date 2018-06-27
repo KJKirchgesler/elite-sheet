@@ -8,9 +8,21 @@ module.exports = function(sequelize, DataTypes) {
 
   });
 
-  Sheet.associate = function(models) {
-  	Sheet.hasMany(models.Transaction);
+  Sheet.associate = (models) => {
+    Sheet.belongsToMany(models.User, {
+      through: 'UserSheet',
+      as: 'User',
+      foreignKey: 'sheetId'
+    })
+
+    Sheet.hasMany(models.Transaction, {
+      as: 'Transaction'
+    })
   }
-  
+
+  // Sheet.associate = (models) => {
+    
+  // }
+
   return Sheet;
 };
