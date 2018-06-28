@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
- var Transaction = sequelize.define(“Transaction”, {
+ var Transaction = sequelize.define('Transaction', {
 
    companyName: {
      type: DataTypes.STRING,

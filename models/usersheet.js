@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
- var UserSheet = sequelize.define(“UserSheet”, {
+ var UserSheet = sequelize.define('UserSheet', {
    userSheetId: {
      type: DataTypes.INTEGER,
      primaryKey: true,
