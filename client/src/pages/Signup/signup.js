@@ -1,12 +1,49 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import API from "../../utils/API.js"
 
 
 class Detail extends Component {
 
+  state = {
+    email: "",
+    password: "",
+    name: ""
+  }
+
+  handleInputChange = event => {
+    const {name, value} = event.target;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+
+    let userData = {
+      email: this.state.email,
+      password: this.state.password,
+      name: this.state.name
+    }
+
+    if (!userData.email || !userData.password || !userData.name) {
+      return;
+    }
+
+    API.signup(userData)
+    .then((res) => {
+      console.log(res);
+      window.location.replace("/login");
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
   render() {
     return (
-        <div className="container">
+      <div className="container">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <a className="navbar-brand" href="/">
             eliteSheets
@@ -61,19 +98,36 @@ class Detail extends Component {
           <h1>Sign up for eliteSheets</h1>
             <form className="signup">
                 <div className="form-group">
-                    <label for="inputEmail">Email Address</label>
-                    <input type="Email" className="form-control" id="email-input" placeholder="Email"></input>
+                    <label htmlFor="inputName">Name</label>
+                    <input type="text" 
+                           className="form-control" 
+                           id="name-input" 
+                           placeholder="Name"
+                           name="name"
+                           onChange={this.handleInputChange}></input>
                 </div>
                 <div className="form-group">
-                    <label for="inputPassword">Password</label>
-                    <input type ="password" className= "form-control" id="password-input" placeholder="Password"></input>
+                    <label htmlFor="inputEmail">Email Address</label>
+                    <input type="Email" 
+                           className="form-control" 
+                           id="email-input" 
+                           placeholder="Email"
+                           name="email"
+                           onChange={this.handleInputChange}></input>
                 </div>
-                <button type="submit" className="btn btn-default">Sign Up</button>
+                <div className="form-group">
+                    <label htmlFor="inputPassword">Password</label>
+                    <input type ="password" 
+                          className= "form-control" 
+                          id="password-input" 
+                          placeholder="Password"
+                          name="password"
+                          onChange={this.handleInputChange}></input>
+                </div>
+                <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Sign Up</button>
             </form>
-
         </div>
-
-          </div>
+      </div>
     );
   }
 }

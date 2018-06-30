@@ -1,12 +1,54 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
+import API from "../../utils/API.js"
 
 class Login extends Component {
 
+  state = {
+    email: "",
+    password: ""
+  }
+
+  handleInputChange = event => {
+    const {name, value} = event.target;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleInputChange = event => {
+    const {name, value} = event.target;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+
+    let userData = {
+      email: this.state.email,
+      password: this.state.password,
+    }
+
+    if (!userData.email || !userData.password) {
+      return;
+    }
+
+    API.login(userData)
+    .then((res) => {
+      console.log(res);
+      window.location.replace("/");
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
   render() {
     return (
-        <div className="container">
+      <div className="container">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <a className="navbar-brand" href="/">
             eliteSheets
@@ -59,21 +101,29 @@ class Login extends Component {
         </nav>
         <div className="jumbotron">
           <h1>Login</h1>
-            <form className="signup">
+            <form className="login">
                 <div className="form-group">
                     <label for="inputEmail">Email Address</label>
-                    <input type="Email" className="form-control" id="login-email" placeholder="Email"></input>
+                    <input type="Email" 
+                           className="form-control" 
+                           id="login-email" 
+                           placeholder="Email"
+                           name="email"
+                           onChange={this.handleInputChange}></input>
                 </div>
                 <div className="form-group">
                     <label for="inputPassword">Password</label>
-                    <input type ="password" className= "form-control" id="login-password" placeholder="Password"></input>
+                    <input type ="password" 
+                           className= "form-control" 
+                           id="login-password" 
+                           placeholder="Password"
+                           name="password"
+                           onChange={this.handleInputChange}></input>
                 </div>
-                <button type="submit" className="btn btn-default">Login</button>
+                <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Login</button>
             </form>
-
         </div>
-
-          </div>
+      </div>
     );
   }
 }

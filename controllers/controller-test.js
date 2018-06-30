@@ -146,7 +146,7 @@ function createTransaction(companyName, companyId, invoiceNum, vendorId, total, 
 //to see if the usersheet table has an entry with the correct
 //userId, SheetId, and is marked as creator and this matches
 //with the id stored in session
-function viewSheet(sheetId) {
+function viewSheet(sheetId, userId) {
 	db.Sheet.find({
 		where: {
 			id: sheetId
