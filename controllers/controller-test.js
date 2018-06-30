@@ -123,13 +123,32 @@ function withdrawAccess(sheetId, sharedUserId) {
 // withdrawAccess(2, 1);
 
 //create a transaction in a sheet
-function createTransaction(companyName, companyId, invoiceNum, vendorId, total, sheetId) {
+function createTransaction(companyName, 
+													 invoiceNumber, 
+													 vendorNumber, 
+													 itemNumber, 
+													 creditNumber, 
+													 debitNumber, 
+													 totalBalance, 
+													 dueDate,
+													 amountPastDue,
+													 departmentName,
+													 locationName,
+													 representativeName,
+													 SheetId) {
 	db.Transaction.create({
 		companyName: companyName,
-		companyId: companyId,
 		invoiceNumber: invoiceNum,
-		vendorId: vendorId,
-		total: total,
+		vendorNumber: vendorId,
+		itemNumber: itemNumber,
+		creditNumber: creditNumber,
+		debitNumber: debitNumber,
+		totalBalance: totalBalance,
+		dueDate: dueDate,
+		amountPastDue: amountPastDue,
+		departmentName: departmentName,
+		locationName: locationName,
+		representativeName: representativeName,
 		SheetId: sheetId
 	}).then(function(result) {
 		console.log('new transaction created for sheet ' + sheetId);
@@ -155,7 +174,18 @@ function viewSheet(sheetId, userId) {
 			model: db.Transaction,
 			as: 'Transaction',
 			required: false,
-			attributes: ['id', 'companyName', 'companyId', 'invoiceNumber', 'vendorId', 'total', 'SheetId' ],
+			attributes: ['id', 
+									 'companyName', 
+									 'invoiceNumber', 
+									 'itemNumber', 
+									 'vendorNumber', 
+									 'totalBalance',
+									 'dueDate',
+									 'amountPastDue',
+									 'departmentName',
+									 'locationName',
+									 'representativeName', 
+									 'SheetId' ],
 			
 		}]	
 	}).then(function(result) {
