@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./pages/login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import AccountInfo from "./pages/accountinfo/chart";
+import AccountInfo from "./pages/viewChart/chart";
+import ViewChart from "./pages/viewChart/chart";
 
 
 const App = () => (
@@ -16,6 +17,7 @@ const App = () => (
     <Route exact path="/signup" component={Detail} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/accountinfo" component={AccountInfo} />
+    <Route exact path="/viewchart" component={ViewChart} />
     <Route exact path="/forgot" component={ForgotPassword} />
     <Route path="/reset/:token" component={ResetPassword} />
   </Switch>

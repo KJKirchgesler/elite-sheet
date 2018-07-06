@@ -128,4 +128,4 @@ class AccountInfo extends Component {
     )}
 }
 
-export default AccountInfo;
+export default ViewChart;
