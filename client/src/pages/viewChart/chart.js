@@ -1,39 +1,72 @@
 import React, { Component } from "react";
-import API from "./utils/API.js";
+import API from "../../utils/API.js"
+import BarChartComponent from "./BarChartComponent"
 
-class HelloBootstrap extends Component {
-  
+
+class AccountInfo extends Component {
+
   state = {
-    username: ""
+    email: "",
+    password: "",
+    confirmPassword: "",
+    name: "",
+    errorMessage:""
   }
 
-  getUserData = () => {
-    API.getUserData()
-    .then((res) => {
-      this.setState({
-        username: res.data.name
-      })
-    }).catch((err) => {
-      console.log(err);
-    })
+  handleInputChange = event => {
+    const {name, value} = event.target;
+
+    this.setState({
+      [name]: value
+    });
   }
 
-  logout = event => {
+  handleSubmit = event => {
     event.preventDefault();
 
-    API.logout()
-    .then((res) => {
-      console.log(res)
+    let userData = {
+      email: this.state.email,
+      password: this.state.password,
+      name: this.state.name
+    }
+
+    if (!userData.email || !userData.password || !this.state.confirmPassword || !userData.name) {
       this.setState({
-        username: ""
-      })
+        errorMessage: "Please ensure all fields are filled."
+      });
+      return;
+    }
+
+    if (this.state.password !== this.state.confirmPassword) {
+      this.setState({
+        errorMessage: "Please ensure your passwords match."
+      });
+      return;
+    }
+
+    if (this.state.password.length < 6 ) {
+      this.setState({
+        errorMessage: "Please ensure your password is at least 6 characters long."
+      });
+      return;
+    }
+
+    API.signup(userData)
+    .then((res) => {
+      // console.log(res);
+      if (res.data.errors) {
+        this.setState({
+          errorMessage: "There was an error with the server:\n" + res.data.errors[0].message
+        })
+      } else {
+        window.location.replace("/login");
+      }
     }).catch((err) => {
       console.log(err);
+      this.setState({
+        errorMessage: "There was an error. Please try again."
+      });
     })
-  }
-
-  componentDidMount () {
-    this.getUserData();
   }
 
   render() {
@@ -41,14 +74,7 @@ class HelloBootstrap extends Component {
       <div className="container">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <a className="navbar-brand" href="/">
-            eliteSheets 
-            {!this.state.username ? (
-              <p>Not logged in</p>
-              ) : (
-              <div>
-                <p>Welcome, {this.state.username}</p>
-                <button onClick={this.logout}>Log Out</button>
-              </div>)}
+            eliteSheets
           </a>
           <button
             className="navbar-toggler"
@@ -60,10 +86,10 @@ class HelloBootstrap extends Component {
           >
             <span className="navbar-toggler-icon" />
           </button>
-
+    
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
+              <li className="nav-item">
                 <a className="nav-link" href="/">
                   Home <span className="sr-only">(current)</span>
                 </a>
@@ -76,8 +102,7 @@ class HelloBootstrap extends Component {
                   role="button"
                   data-toggle="dropdown"
                   aria-haspopup="true"
-                  aria-expanded="false"
-                >
+                  aria-expanded="false">
                   User
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -96,25 +121,11 @@ class HelloBootstrap extends Component {
             </ul>
           </div>
         </nav>
-       <div className="jumbotron">
-      <h1>Welcome to eliteSheets</h1>
-      <p>
-        Are you looking for greater transparency and more efficiently updated transactions with the partners with whom you do business? If so, we have the perfect solution for you.
-      </p>
-    </div>
-    <div className="card">
-      <div className="card-header">
-        <h3 className="card-title">That sounds great! How does it work?</h3>
-      </div>
-      <div className="card-body">
-        <p className="card-text">
-        An app tracking receivables and payables between at least two companies. A user signs up, logs in, and can create new eliteSheets, view eliteSheets that they are a part of, and accept invitations from other companies to start an eliteSheet with them. On each eliteSheet, a company representative can add new transactions and see how they balance with transactions from the other company. It allows two or more companies to keep a close eye on their transactions and ensure that each company’s balance is paid accurately and on time.
-        </p>
+        <div className="jumbotron">
+        <BarChartComponent/>
       </div>
     </div>
-  </div>
-    );
-  }
+    )}
 }
 
-export default HelloBootstrap;
+export default ViewChart;
