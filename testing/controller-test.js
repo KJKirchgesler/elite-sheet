@@ -1,4 +1,4 @@
-var db = require("./models");
+var db = require("../models");
 
 //create a sheet and tag the logged in user as the creator
 function createSheet(sheetName, userId) {
@@ -139,7 +139,7 @@ function createTransaction(companyName, companyId, invoiceNum, vendorId, total, 
 }
 
 // createTransaction("Bob", "1234", "1234", 123.32, 1)
-// createTransaction("Steve", "1234", "1234", 234.32, 1)
+//createTransaction("Steve", "1234", "1234", 234.32, 1)
 
 //view a sheet with all its transactions
 //later on, include authorization for viewing a sheet by looking
@@ -170,28 +170,50 @@ function viewSheet(sheetId) {
 	})
 }
 
-//viewSheet(1);
+//viewSheet(4);
 
-function createSheetAuthorized(sheetName, userId) {
- 	db.Sheet.create({
- 		name: sheetName
- 	}).then(function(result) {
-	 	console.log("sheet created named " + sheetName);
-	 	let newSheetId = result.dataValues.id;
-		console.log("new sheet id is " + newSheetId);
+function viewUsers() {
+	db.User.findAll()
+	.then(function(users) {
+		let userArray = [];
+		users.forEach((user) => {
+			let singleUser = {
+				id: user.dataValues.id,
+				email: user.dataValues.email,
+				name: user.dataValues.name
+			}
 
-		db.UserSheet.create({
-			userId: userId,
-			sheetId: newSheetId,
-			userIsCreator: true
-		}).then(function(result) {
-			console.log("usersheet entry added with new sheet id, user id, and user marked creator")
-			console.log(result.dataValues);
-		}).catch(function (err) {
-			console.log(err);
-		});
-		
-  }).catch(function (err) {
-		console.log(err);
+			userArray.push(singleUser);
+		})
+		console.log(userArray);
 	});
 }
+
+// viewUsers();
+
+function viewCollaborators(sheetId) {
+	db.UserSheet.findAll({
+		include: [{
+			model: db.User,
+			as: 'User',
+			where: {
+				userId: userId
+			}
+			// required: false,
+			//attributes: ['id', 'name', 'email'],
+			// through: {
+			// 	attributes: [],
+			// },
+		}],
+		where: {
+			sheetId: sheetId,
+			userIsCreator: false 
+		}
+	}).then(function(res) {
+		let singleUser = {
+		}
+		console.log(res);
+	})
+}
+
+viewCollaborators(3);
