@@ -3,7 +3,7 @@ import API from "../../utils/API.js"
 import BarChartComponent from "./BarChartComponent"
 
 
-class AccountInfo extends Component {
+class ViewChart extends Component {
 
   state = {
     email: "",
@@ -128,4 +128,4 @@ class AccountInfo extends Component {
     )}
 }
 
-export default AccountInfo;
+export default ViewChart;
