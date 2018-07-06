@@ -1,5 +1,23 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  background-image: url("./assets/images/mekong-green.png");
+}
+
+.nav {
+  background: paleturquoise;
+}
+
+.jumbotron {
+  background: white;
+}
+
+h1, h2, h3 {
+  color: purple;
+}
+
+button {
+ background: purple;
+ color: white;
 }
