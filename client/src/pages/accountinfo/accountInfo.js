@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import API from "../../utils/API.js"
-import BarChartComponent from "./BarChartComponent"
 
 
-class ViewChart extends Component {
+
+class AccountInfo extends Component {
 
   state = {
     email: "",
@@ -122,10 +122,16 @@ class ViewChart extends Component {
           </div>
         </nav>
         <div className="jumbotron">
-        <BarChartComponent/>
+        <div className="card">
+          <div className="card-body">
+          <h5 className="card-title">Card title</h5>
+          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+        </div>
       </div>
     </div>
     )}
 }
 
-export default ViewChart;
+export default AccountInfo;
