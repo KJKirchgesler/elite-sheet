@@ -2,15 +2,20 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API.js"
 
-
-class Detail extends Component {
+class ResetPassword extends Component {
 
   state = {
-    email: "",
     password: "",
     confirmPassword: "",
-    name: "",
-    errorMessage:""
+    message: ""
+  }
+
+  handleInputChange = event => {
+    const {name, value} = event.target;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   handleInputChange = event => {
@@ -24,48 +29,45 @@ class Detail extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    let userData = {
-      email: this.state.email,
-      password: this.state.password,
-      name: this.state.name
-    }
-
-    if (!userData.email || !userData.password || !this.state.confirmPassword || !userData.name) {
-      this.setState({
-        errorMessage: "Please ensure all fields are filled."
-      });
+    
+    if (!this.state.password || !this.state.confirmPassword) {
       return;
     }
 
     if (this.state.password !== this.state.confirmPassword) {
       this.setState({
-        errorMessage: "Please ensure your passwords match."
-      });
+        message: "Your passwords do not match."
+      })
       return;
     }
 
     if (this.state.password.length < 6 ) {
       this.setState({
-        errorMessage: "Please ensure your password is at least 6 characters long."
+        message: "Please ensure your password is at least 6 characters long."
       });
       return;
     }
 
-    API.signup(userData)
+    let pathArray = window.location.pathname.split("/");
+    let passwordToken = pathArray[2];
+    console.log(passwordToken)
+
+    let userData = {
+          password: this.state.password,
+          passwordToken: passwordToken
+        }
+
+    API.resetPassword(userData)
     .then((res) => {
-      // console.log(res);
-      if (res.data.errors) {
-        this.setState({
-          errorMessage: "There was an error with the server:\n" + res.data.errors[0].message
-        })
-      } else {
-        window.location.replace("/login");
-      }
+      console.log(res);
+      this.setState({
+        message: "Your password has been updated. Proceed to the login page to access your account."
+      })
     }).catch((err) => {
       console.log(err);
       this.setState({
-        errorMessage: "There was an error. Please try again."
-      });
+        message: "There was an error. Please try again."
+      })
     })
   }
 
@@ -102,7 +104,8 @@ class Detail extends Component {
                   role="button"
                   data-toggle="dropdown"
                   aria-haspopup="true"
-                  aria-expanded="false">
+                  aria-expanded="false"
+                >
                   User
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -122,29 +125,11 @@ class Detail extends Component {
           </div>
         </nav>
         <div className="jumbotron">
-          <h1>Sign up for eliteSheets</h1>
-            {this.state.errorMessage ? 
-              (<p>{this.state.errorMessage}</p>) :
-              (<p>Please complete the form below to sign up for eliteSheets.</p>)}
-            <form className="signup">
-                <div className="form-group">
-                    <label htmlFor="inputName">Name</label>
-                    <input type="text" 
-                           className="form-control" 
-                           id="name-input" 
-                           placeholder="Name"
-                           name="name"
-                           onChange={this.handleInputChange}></input>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="inputEmail">Email Address</label>
-                    <input type="Email" 
-                           className="form-control" 
-                           id="email-input" 
-                           placeholder="Email"
-                           name="email"
-                           onChange={this.handleInputChange}></input>
-                </div>
+          <h1>Reset Password</h1>
+          {this.state.message ? 
+              (<p>{this.state.message}</p>) :
+              (<p>Please enter and confirm a new password below.</p>)}
+            <form className="login">
                 <div className="form-group">
                     <label htmlFor="inputPassword">Password</label>
                     <input type ="password" 
@@ -163,7 +148,7 @@ class Detail extends Component {
                           name="confirmPassword"
                           onChange={this.handleInputChange}></input>
                 </div>
-                <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Sign Up</button>
+                <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Reset Password</button>
             </form>
         </div>
       </div>
@@ -171,4 +156,4 @@ class Detail extends Component {
   }
 }
 
-export default Detail;
+export default ResetPassword;

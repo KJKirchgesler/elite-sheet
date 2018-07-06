@@ -17,6 +17,14 @@ export default {
 		return axios.get("/auth/userdata");
 	},
 
+	forgotPassword: function(userData) {
+		return axios.post("/auth/forgotPassword", userData);
+	},
+
+	resetPassword: function(userData) {
+		return axios.post("/auth/resetPassword", userData);
+	},
+
 	createSheet: function(sheetData) {
 		return axios.post("/createsheet", sheetData)
 	},

@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API.js"
 
-class Login extends Component {
+class ForgotPassword extends Component {
 
   state = {
     email: "",
-    password: "",
-    errorMessage: ""
+    message: ""
   }
 
   handleInputChange = event => {
@@ -30,22 +29,23 @@ class Login extends Component {
     event.preventDefault();
 
     let userData = {
-      email: this.state.email,
-      password: this.state.password,
+      email: this.state.email
     }
 
-    if (!userData.email || !userData.password) {
+    if (!userData.email) {
       return;
     }
 
-    API.login(userData)
+    API.forgotPassword(userData)
     .then((res) => {
-      //console.log(res);
-      window.location.replace("/");
+      console.log(res);
+      this.setState({
+        message: "An email has been sent to " + this.state.email + " with further instructions."
+      })
     }).catch((err) => {
       console.log(err);
       this.setState({
-        errorMessage: "There was an error logging in. Please ensure your credentials are correct."
+        message: "There was an error. Please ensure your email address is correct."
       })
     })
   }
@@ -104,10 +104,10 @@ class Login extends Component {
           </div>
         </nav>
         <div className="jumbotron">
-          <h1>Login</h1>
-          {this.state.errorMessage ? 
-              (<p>{this.state.errorMessage}</p>) :
-              (<p>Please complete the form below to log in to eliteSheets.</p>)}
+          <h1>Forgot your password?</h1>
+          {this.state.message ? 
+              (<p>{this.state.message}</p>) :
+              (<p>Please enter the email address for your eliteSheets account to receive an email with a link to change your password.</p>)}
             <form className="login">
                 <div className="form-group">
                     <label for="inputEmail">Email Address</label>
@@ -118,17 +118,7 @@ class Login extends Component {
                            name="email"
                            onChange={this.handleInputChange}></input>
                 </div>
-                <div className="form-group">
-                    <label for="inputPassword">Password</label>
-                    <input type ="password" 
-                           className= "form-control" 
-                           id="login-password" 
-                           placeholder="Password"
-                           name="password"
-                           onChange={this.handleInputChange}></input>
-                </div>
-                <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Login</button>
-                <a href="/forgot">Forgot my password</a>
+                <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Reset Password</button>
             </form>
         </div>
       </div>
@@ -136,4 +126,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default ForgotPassword;

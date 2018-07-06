@@ -24,5 +24,6 @@ yarn-error.log*
 #test files
 NYTimes-tests
 
-#API key
+#API keys
 API-key.js
+sendgrid-api-key.js
