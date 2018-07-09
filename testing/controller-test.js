@@ -101,7 +101,7 @@ function grantAccess(sheetId, sharedUserId) {
 	});
 }
 
-//grantAccess(2, 1);
+// grantAccess(2, 1);
 
 //withdraw access to a sheet from a user who doesn't have access to the sheet
 //again, in production we need to check whether the user withdrawing access
@@ -155,7 +155,7 @@ function viewSheet(sheetId) {
 			model: db.Transaction,
 			as: 'Transaction',
 			required: false,
-			attributes: ['id', 'companyName', 'companyId', 'invoiceNumber', 'vendorId', 'total', 'SheetId' ],
+			attributes: ['id', 'companyName', 'invoiceNumber', 'vendorId', 'total', 'SheetId' ],
 			
 		}]	
 	}).then(function(result) {
@@ -189,26 +189,20 @@ function viewUsers() {
 	});
 }
 
-// viewUsers();
+//viewUsers();
 
 function viewCollaborators(sheetId) {
 	db.UserSheet.findAll({
-		include: [{
-			model: db.User,
-			as: 'User',
-			where: {
-				userId: userId
-			}
-			// required: false,
-			//attributes: ['id', 'name', 'email'],
-			// through: {
-			// 	attributes: [],
-			// },
-		}],
 		where: {
 			sheetId: sheetId,
 			userIsCreator: false 
-		}
+		},
+		include: [{
+			model: db.User,
+			as: 'User',
+			required: false,
+			attributes: ['id', 'name', 'email']
+		}],
 	}).then(function(res) {
 		let singleUser = {
 		}
@@ -216,4 +210,4 @@ function viewCollaborators(sheetId) {
 	})
 }
 
-viewCollaborators(3);
+viewCollaborators(2);

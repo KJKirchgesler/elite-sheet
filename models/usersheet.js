@@ -14,13 +14,20 @@ module.exports = function(sequelize, DataTypes) {
    sheetId: {
      type: DataTypes.INTEGER,
      allowNull: false
-   },
+    },
 
-   userIsCreator: {
+    userIsCreator: {
      type: DataTypes.INTEGER,
      allowNull: false
-   }
- });
+    }
+  });
+
+  UserSheet.associate = (models) => {
+    UserSheet.belongsTo(models.User, {
+      foreignKey: "userId",
+    });
+  }
+
  
- return UserSheet;
+  return UserSheet;
 };

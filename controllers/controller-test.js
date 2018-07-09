@@ -1,4 +1,4 @@
-var db = require("./models");
+var db = require("../models");
 
 //create a sheet and tag the logged in user as the creator
 function createSheet(sheetName, userId) {
@@ -25,8 +25,8 @@ function createSheet(sheetName, userId) {
 	});
 }
 
-// createSheet("bob's big sheet", 1)
-// createSheet("steve's sheet", 2)
+createSheet("bob's big sheet", 1)
+createSheet("steve's sheet", 2)
 
 //displays the names of all the sheets a user has created
 function viewCreatedSheets(userId) {

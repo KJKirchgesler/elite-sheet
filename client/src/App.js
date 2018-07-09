@@ -12,27 +12,18 @@ import ViewChart from "./pages/viewChart/chart";
 const App = () => (
 <div>
     <Router>
-  <Switch>
-    <Route exact path="/" component={HelloBootstrap} />
-    <Route exact path="/signup" component={Detail} />
-    <Route exact path="/login" component={Login} />
-    <Route exact path="/accountinfo" component={AccountInfo} />
-    <Route exact path="/viewchart" component={ViewChart} />
-    <Route exact path="/forgot" component={ForgotPassword} />
-    <Route path="/reset/:token" component={ResetPassword} />
-  </Switch>
-</Router>
+      <Switch>
+        <Route exact path="/" component={HelloBootstrap} />
+        <Route exact path="/signup" component={Detail} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/accountinfo" component={AccountInfo} />
+        <Route exact path="/viewchart" component={ViewChart} />
+        <Route exact path="/forgot" component={ForgotPassword} />
+        <Route path="/reset/:token" component={ResetPassword} />
+      </Switch>
+    </Router>
 </div>
 
 )
 
-
-
 export default App;
-
-
-
-
-
-
-

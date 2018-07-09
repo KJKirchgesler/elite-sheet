@@ -117,18 +117,12 @@ router.post("/resetPassword", function(req, res) {
         [Op.gt]: Date.now()
       }
     }
-  }).then(function(result) {
-    let user = result.dataValues
+  }).then(function(user) {
     
-    db.User.update({
+    user.update({
       password: newPassword,
       resetPasswordToken: null,
       resetPasswordExpires: null
-    },
-    {
-      where: {
-        id: user.id
-      }
     }).then(function(result) {
       console.log("password updated");
 

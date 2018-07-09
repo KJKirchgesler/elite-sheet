@@ -1,72 +1,37 @@
 import React, { Component } from "react";
 import API from "../../utils/API.js"
 
-
-
 class AccountInfo extends Component {
 
   state = {
-    email: "",
-    password: "",
-    confirmPassword: "",
-    name: "",
-    errorMessage:""
+    newSheetTitle: "",
+    username: "",
+    useremail: "",
+    userid: "",
+    createdSheets: [],
+    sharedSheets: [],
   }
 
-  handleInputChange = event => {
-    const {name, value} = event.target;
-
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleSubmit = event => {
-    event.preventDefault();
-
-    let userData = {
-      email: this.state.email,
-      password: this.state.password,
-      name: this.state.name
-    }
-
-    if (!userData.email || !userData.password || !this.state.confirmPassword || !userData.name) {
-      this.setState({
-        errorMessage: "Please ensure all fields are filled."
-      });
-      return;
-    }
-
-    if (this.state.password !== this.state.confirmPassword) {
-      this.setState({
-        errorMessage: "Please ensure your passwords match."
-      });
-      return;
-    }
-
-    if (this.state.password.length < 6 ) {
-      this.setState({
-        errorMessage: "Please ensure your password is at least 6 characters long."
-      });
-      return;
-    }
-
-    API.signup(userData)
+  getUserData = () => {
+    API.getUserData()
     .then((res) => {
-      // console.log(res);
-      if (res.data.errors) {
-        this.setState({
-          errorMessage: "There was an error with the server:\n" + res.data.errors[0].message
-        })
-      } else {
+      console.log(res);
+      if (res.data.name === undefined) {
         window.location.replace("/login");
+      } else {
+        this.setState({
+          username: res.data.name,
+          email: res.data.email,
+          id: res.data.id
+        })
       }
     }).catch((err) => {
       console.log(err);
-      this.setState({
-        errorMessage: "There was an error. Please try again."
-      });
     })
+  }
+
+  componentDidMount() {
+    this.getUserData();
   }
 
   render() {
@@ -122,15 +87,17 @@ class AccountInfo extends Component {
           </div>
         </nav>
         <div className="jumbotron">
-        <div className="card">
-          <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
+          <p>User: {this.state.username}</p>
+          <p>Email: {this.state.useremail}</p>
+          <div className="card">
+            <div className="card-body">
+            <h5 className="card-title">Card title</h5>
+            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" className="btn btn-primary">Go somewhere</a>
+          </div>
+          </div>
         </div>
       </div>
-    </div>
     )}
 }
 

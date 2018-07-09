@@ -41,7 +41,7 @@ class Login extends Component {
     API.login(userData)
     .then((res) => {
       //console.log(res);
-      window.location.replace("/");
+      window.location.replace("/accountinfo");
     }).catch((err) => {
       console.log(err);
       this.setState({
@@ -110,7 +110,7 @@ class Login extends Component {
               (<p>Please complete the form below to log in to eliteSheets.</p>)}
             <form className="login">
                 <div className="form-group">
-                    <label for="inputEmail">Email Address</label>
+                    <label htmlFor="inputEmail">Email Address</label>
                     <input type="Email" 
                            className="form-control" 
                            id="login-email" 
@@ -119,7 +119,7 @@ class Login extends Component {
                            onChange={this.handleInputChange}></input>
                 </div>
                 <div className="form-group">
-                    <label for="inputPassword">Password</label>
+                    <label htmlFor="inputPassword">Password</label>
                     <input type ="password" 
                            className= "form-control" 
                            id="login-password" 
