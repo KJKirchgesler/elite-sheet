@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API.js"
+import { Input, TextArea, FormBtn, FormBtnLeft, FormBtnRight } from "../../components/Form";
 
 class AccountInfo extends Component {
 
@@ -95,6 +96,131 @@ class AccountInfo extends Component {
             <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             <a href="#" className="btn btn-primary">Go somewhere</a>
           </div>
+        <h2>Welcome, Company Name</h2>
+        <h3>email: example@email.com</h3>
+          <div className="card mt-3">
+            <div className="card-body">
+              <form className="form-inline">
+                <FormBtn>Create a new eliteSheet</FormBtn>
+                  <Input    
+                    className="form-control ml-3"
+                    placeholder="New sheet name"
+                  />
+              </form>
+ 
+            <div className="card mt-3">
+              <div className="card-body">
+                <h5 className="card-title">My eliteSheets</h5>
+
+              <div className="card">
+                <div className="card-body">
+                  <form className="form-inline">
+                    <h5 className="card-title">sheetName with Company</h5>
+          
+                      <div className="dropdown">
+                        <button className="btn btn-outline-secondary dropdown-toggle" 
+                          type="button" id="dropdownMenuButton" 
+                          data-toggle="dropdown" 
+                          aria-haspopup="true" 
+                          aria-expanded="false"
+                          className="form-control ml-5 mr-3"
+                        >
+                          Invite a company to join
+                        </button>
+                          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a className="dropdown-item" href="#">Action</a>
+                            <a className="dropdown-item" href="#">Another action</a>
+                            <a className="dropdown-item" href="#">Something else here</a>
+                          </div>
+                      </div>
+                
+                    <div className="btn-group ml-auto" role="group">
+                      <FormBtn>Go to sheet</FormBtn>
+                      <FormBtn>Delete sheet</FormBtn>
+                    </div>
+                  </form>
+         
+
+                <div className="card mt-3">
+                  <div className="card-body">
+                    <h5 className="card-title">Users that I have granted access to this sheet:</h5>
+                      <div className="card m-2">
+                        <div className="card-body">
+                          <form className="form-inline">
+                            <h5 className="card-title">Company 1</h5>
+                              <FormBtnRight>Withdraw Access</FormBtnRight>
+                          </form>
+                        </div>
+                      </div>
+                      <div className="card m-2">
+                        <div className="card-body">
+                          <form className="form-inline">
+                            <h5 className="card-title">Company 2</h5>
+                              <FormBtnRight>Withdraw Access</FormBtnRight>
+                          </form>
+                        </div>
+                      </div>       
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div className="card mt-3">
+                <div className="card-body">
+                  <form className="form-inline">
+                    <h5 className="card-title">sheetName with Company</h5>          
+                      <div className="dropdown">
+                        <button className="btn btn-outline-secondary dropdown-toggle" 
+                          type="button" id="dropdownMenuButton" 
+                          data-toggle="dropdown" 
+                          aria-haspopup="true" 
+                          aria-expanded="false"
+                          className="form-control ml-5 mr-3"
+                        >
+                          Invite a company to join
+                        </button>
+                          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a className="dropdown-item" href="#">Action</a>
+                            <a className="dropdown-item" href="#">Another action</a>
+                            <a className="dropdown-item" href="#">Something else here</a>
+                          </div>
+                        </div>
+                    <div className="btn-group ml-auto" role="group">
+                      <FormBtn>Go to sheet</FormBtn>
+                      <FormBtn>Delete sheet</FormBtn>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="card mt-3">
+            <div className="card-body">
+              <h5 className="card-title">Other Sheets that I have access to:</h5>
+                <div className="card">
+                  <div className="card-body">
+                    <form className="form-inline">
+                      <h5 className="card-title">sheetName with Company</h5>
+                        <FormBtnRight>
+                          Go to Sheet
+                        </FormBtnRight>
+                    </form>    
+                  </div>
+                </div>
+
+                <div className="card mt-2">
+                  <div className="card-body">
+                    <form className="form-inline">
+                      <h5 className="card-title">sheetName with Company</h5>
+                        <FormBtnRight>
+                          Go to Sheet
+                        </FormBtnRight>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
