@@ -7,7 +7,7 @@ class AccountInfo extends Component {
   state = {
     newSheetTitle: "",
     username: "",
-    useremail: "",
+    email: "",
     userid: "",
     createdSheets: [],
     sharedSheets: [],
@@ -88,16 +88,10 @@ class AccountInfo extends Component {
           </div>
         </nav>
         <div className="jumbotron">
-          <p>User: {this.state.username}</p>
-          <p>Email: {this.state.useremail}</p>
-          <div className="card">
-            <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" className="btn btn-primary">Go somewhere</a>
-          </div>
-        <h2>Welcome, Company Name</h2>
-        <h3>email: example@email.com</h3>
+          <h2>Welcome!</h2>
+          <h3>User: {this.state.username}</h3>
+          <h3>Email: {this.state.email}</h3>
+          
           <div className="card mt-3">
             <div className="card-body">
               <form className="form-inline">
@@ -224,6 +218,7 @@ class AccountInfo extends Component {
           </div>
         </div>
       </div>
+    </div>
     )}
 }
 
