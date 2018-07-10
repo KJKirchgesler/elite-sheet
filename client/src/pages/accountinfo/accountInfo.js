@@ -127,7 +127,9 @@ class AccountInfo extends Component {
                             <a className="dropdown-item" href="#">Something else here</a>
                           </div>
                       </div>
-                
+                      <div className="btn-group ml-auto" role="group">
+                      <FormBtn>Invite</FormBtn>
+                    </div>
                     <div className="btn-group ml-auto" role="group">
                       <FormBtn>Go to sheet</FormBtn>
                       <FormBtn>Delete sheet</FormBtn>
@@ -159,33 +161,7 @@ class AccountInfo extends Component {
 
                 </div>
               </div>
-              <div className="card mt-3">
-                <div className="card-body">
-                  <form className="form-inline">
-                    <h5 className="card-title">sheetName with Company</h5>          
-                      <div className="dropdown">
-                        <button className="btn btn-outline-secondary dropdown-toggle" 
-                          type="button" id="dropdownMenuButton" 
-                          data-toggle="dropdown" 
-                          aria-haspopup="true" 
-                          aria-expanded="false"
-                          className="form-control ml-5 mr-3"
-                        >
-                          Invite a company to join
-                        </button>
-                          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a className="dropdown-item" href="#">Action</a>
-                            <a className="dropdown-item" href="#">Another action</a>
-                            <a className="dropdown-item" href="#">Something else here</a>
-                          </div>
-                        </div>
-                    <div className="btn-group ml-auto" role="group">
-                      <FormBtn>Go to sheet</FormBtn>
-                      <FormBtn>Delete sheet</FormBtn>
-                    </div>
-                  </form>
-                </div>
-              </div>
+              
             </div>
           </div>
 
