@@ -156,16 +156,12 @@ class AccountInfo extends Component {
           </div>
         </nav>
         <div className="jumbotron">
-          <p>User: {this.state.userName}</p>
-          <p>Email: {this.state.userEmail}</p>
-          <div className="card">
-            <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" className="btn btn-primary">Go somewhere</a>
-          </div>
-        <h2>Welcome, Company Name</h2>
-        <h3>email: example@email.com</h3>
+
+          <h2>Welcome!</h2>
+          <h3>User: {this.state.userName}</h3>
+          <h3>Email: {this.state.userEmail}</h3>
+          
+
           <div className="card mt-3">
             <div className="card-body">
               <form className="form-inline">
@@ -203,7 +199,9 @@ class AccountInfo extends Component {
                             <a className="dropdown-item" href="#">Something else here</a>
                           </div>
                       </div>
-                
+                      <div className="btn-group ml-auto" role="group">
+                      <FormBtn>Invite</FormBtn>
+                    </div>
                     <div className="btn-group ml-auto" role="group">
                       <FormBtn>Go to sheet</FormBtn>
                       <FormBtn>Delete sheet</FormBtn>
@@ -235,33 +233,7 @@ class AccountInfo extends Component {
 
                 </div>
               </div>
-              <div className="card mt-3">
-                <div className="card-body">
-                  <form className="form-inline">
-                    <h5 className="card-title">sheetName with Company</h5>          
-                      <div className="dropdown">
-                        <button className="btn btn-outline-secondary dropdown-toggle" 
-                          type="button" id="dropdownMenuButton" 
-                          data-toggle="dropdown" 
-                          aria-haspopup="true" 
-                          aria-expanded="false"
-                          className="form-control ml-5 mr-3"
-                        >
-                          Invite a company to join
-                        </button>
-                          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a className="dropdown-item" href="#">Action</a>
-                            <a className="dropdown-item" href="#">Another action</a>
-                            <a className="dropdown-item" href="#">Something else here</a>
-                          </div>
-                        </div>
-                    <div className="btn-group ml-auto" role="group">
-                      <FormBtn>Go to sheet</FormBtn>
-                      <FormBtn>Delete sheet</FormBtn>
-                    </div>
-                  </form>
-                </div>
-              </div>
+              
             </div>
           </div>
 
@@ -295,7 +267,10 @@ class AccountInfo extends Component {
         </div>
       </div>
     </div>
+<<<<<<< HEAD
     </div>
+=======
+>>>>>>> 004e8d6c63964f3ad5d4bfeaeec1fdb7ea169fc7
     )}
 }
 
