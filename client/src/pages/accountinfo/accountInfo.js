@@ -6,24 +6,25 @@ class AccountInfo extends Component {
 
   state = {
     newSheetTitle: "",
-    username: "",
-    useremail: "",
-    userid: "",
+    userName: "",
+    userEmail: "",
+    userId: "",
     createdSheets: [],
     sharedSheets: [],
+    newSheetName: ""
   }
 
   getUserData = () => {
     API.getUserData()
     .then((res) => {
-      console.log(res);
+      //console.log(res.data.email);
       if (res.data.name === undefined) {
         window.location.replace("/login");
       } else {
         this.setState({
-          username: res.data.name,
-          email: res.data.email,
-          id: res.data.id
+          userName: res.data.name,
+          userEmail: res.data.email,
+          userId: res.data.id
         })
       }
     }).catch((err) => {
@@ -31,8 +32,75 @@ class AccountInfo extends Component {
     })
   }
 
+  createSheet = event => {
+    event.preventDefault();
+    
+    let sheetData = {
+      newSheetName: this.state.newSheetName,
+      userId: this.state.userId
+    }
+
+    if (this.state.newSheetName !== "") {
+      console.log(sheetData)
+
+      API.createSheet(sheetData)
+      .then((res) => {
+        let newSheet = res.data;
+        let updatedSheets = this.state.createdSheets.push(newSheet);
+        console.log("updated created sheets-------")
+        console.log(this.state.createdSheets);
+      })
+    } 
+  }
+
+  viewCreated = () => {
+    API.viewCreatedSheets()
+    .then((res) => {
+      let createdSheets = res.data;
+      this.setState({
+        createdSheets: createdSheets
+      })
+      // console.log("Here are the sheets this user has created-----");
+      // console.log(this.state.createdSheets);
+    })
+  }
+
+  viewShared = () => {
+    API.viewSharedSheets()
+    .then((res) => {
+      let sharedSheets = res.data;
+      this.setState({
+        sharedSheets: sharedSheets
+      })
+      // console.log("Here are the shared sheets for this user-----")
+      // console.log(res);
+    })
+  }
+
+  grantAccess = event => {
+
+  }
+
+  withdrawAccess = event => {
+
+  }
+
+  viewSheet = event => {
+
+  }
+
   componentDidMount() {
     this.getUserData();
+    this.viewCreated();
+    this.viewShared();
+  }
+
+  handleInputChange = event => {
+    const {name, value} = event.target;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   render() {
@@ -88,8 +156,8 @@ class AccountInfo extends Component {
           </div>
         </nav>
         <div className="jumbotron">
-          <p>User: {this.state.username}</p>
-          <p>Email: {this.state.useremail}</p>
+          <p>User: {this.state.userName}</p>
+          <p>Email: {this.state.userEmail}</p>
           <div className="card">
             <div className="card-body">
             <h5 className="card-title">Card title</h5>
@@ -101,10 +169,12 @@ class AccountInfo extends Component {
           <div className="card mt-3">
             <div className="card-body">
               <form className="form-inline">
-                <FormBtn>Create a new eliteSheet</FormBtn>
+                <FormBtn onClick={this.createSheet}>Create a new eliteSheet</FormBtn>
                   <Input    
                     className="form-control ml-3"
                     placeholder="New sheet name"
+                    name="newSheetName"
+                    onChange={this.handleInputChange}
                   />
               </form>
  
@@ -224,6 +294,8 @@ class AccountInfo extends Component {
           </div>
         </div>
       </div>
+    </div>
+    </div>
     )}
 }
 

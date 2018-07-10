@@ -2,17 +2,101 @@ var db = require("../models");
 const router = require("express").Router();
 
 router.post("/createsheet", function(req, res) {
-	console.log(req.body);
- 	res.json(sheetData);
+	// console.log("inside create sheet route");
+	// console.log(req.body)
+ 	
+	let newSheetName = req.body.newSheetName;
+	let userId = req.body.userId;
+
+ 	db.Sheet.create({
+ 		name: newSheetName
+ 	}).then(function(result) {
+	 	console.log("sheet created named " + newSheetName);
+	 	let newSheetData = result.dataValues;
+		console.log("new sheet id is " + newSheetData.id);
+
+		db.UserSheet.create({
+			userId: userId,
+			sheetId: newSheetData.id,
+			userIsCreator: true
+		}).then(function(result) {
+			console.log("usersheet entry added with new sheet id, user id, and user marked creator")
+			newUserSheetRow = result.dataValues;
+
+			let sheetData = {
+				name: newSheetData.name,
+				userId: newUserSheetRow.userId,
+				userIsCreator: newUserSheetRow.userIsCreator,
+				sheetId: newUserSheetRow.sheetId
+			}
+			res.json(sheetData);
+		}).catch(function (err) {
+			console.log(err);
+			res.status(400).send("there was a server error")
+		});
+
+  }).catch(function (err) {
+		console.log(err);
+		res.status(400).send("there was a server error")
+	});
 });
 
 router.get("/viewcreated", function(req, res) {
-	console.log(req.body)
+	// console.log("inside view created route")
+	// console.log(req.user)
+	let userId = req.user.id;
+
+	db.User.find({
+		include: [{
+			model: db.Sheet,
+			as: 'Sheet',
+			required: false,
+			attributes: ['id', 'name'],
+			through: {
+				attributes: [],
+				where: {userIsCreator: true}
+			},
+		}],
+		where: userId
+	}).then(function(result) {
+		let sheets = [];
+		for (i = 0; i < result.dataValues.Sheet.length; i++) {
+			sheets.push(result.dataValues.Sheet[i].dataValues);
+		}
+		res.json(sheets);
+	}).catch(function (err) {
+		console.log(err);
+		res.json(err);
+	});
 });
 
 router.get("/viewshared", function(req, res) {
- 	console.log(req.body)
- 	res.json(sheetData);
+	let userId = req.user.id;
+ 	// console.log(req.body)
+ 	db.User.find({
+		include: [{
+			model: db.Sheet,
+			as: 'Sheet',
+			required: false,
+			attributes: ['id', 'name'],
+			through: {
+				attributes: [],
+				where: {userIsCreator: false}
+			},
+		}],
+		where: userId
+	}).then(function(result) {
+		let sheets = [];
+		for (i = 0; i < result.dataValues.Sheet.length; i++) {
+			sheets.push(result.dataValues.Sheet[i].dataValues);
+		}
+		console.log("shared sheets for user " + userId)
+		console.log(sheets)
+		res.json(sheets);
+	}).catch(function (err) {
+		console.log(err);
+		res.json(err);
+	});
 });
 
 router.get("/grantaccess", function(req, res) {
