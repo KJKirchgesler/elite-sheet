@@ -200,9 +200,38 @@ router.delete("/withdrawaccess/:sheetId/:otherUserId/:creatorUserId", function(r
 });
 
 router.get("/createtransaction", function(req, res) {
+
  	console.log(req.user)
  	res.json(userData);
 });
+	//console.log(req.body);
+	var Transaction = {};
+	
+	 db.Transaction.create({
+		 where: {
+			 transaction: {
+				companyName: companyName,
+			 	invoiceNumber: invoiceNum,
+				vendorNumber: vendorId,
+				itemNumber: itemNumber,
+				creditNumber: creditNumber,
+				debitNumber: debitNumber,
+				totalBalance: totalBalance,
+				dueDate: dueDate,
+				amountPastDue: amountPastDue,
+				departmentName: departmentName,
+				locationName: locationName,
+				representativeName: representativeName,
+				SheetId: sheetId
+				 }
+			}
+		}).then(function(dbTransaction) {
+		res.json(userData);
+		console.log(req.body);
+		}).catch(function (err) {
+		console.log(err);
+		});
+
 
 router.get("/viewsheet", function(req, res) {
 	let sessionUserId = req.user.id;//*make sure this works later on*
@@ -305,3 +334,6 @@ router.get("/getUsers", function(req, res) {
 // });
 
 module.exports = router;
+
+
+//delete route transaction, sheet records, user sheet
