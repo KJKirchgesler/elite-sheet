@@ -8,12 +8,14 @@ module.exports = function(sequelize, DataTypes) {
 
    userId: {
      type: DataTypes.INTEGER,
-     allowNull: false
+     allowNull: false,
+     unique: false
    },
 
    sheetId: {
      type: DataTypes.INTEGER,
-     allowNull: false
+     allowNull: false, 
+     unique: false
     },
 
     userIsCreator: {
@@ -25,6 +27,10 @@ module.exports = function(sequelize, DataTypes) {
   UserSheet.associate = (models) => {
     UserSheet.belongsTo(models.User, {
       foreignKey: "userId",
+    });
+
+    UserSheet.belongsTo(models.Sheet, {
+      foreignKey: "sheetId",
     });
   }
 

@@ -37,12 +37,16 @@ export default {
 		return axios.get("/viewshared");
 	},
 
-	grantAccess: function(userData) {
+	viewOtherUsers: function() {
+		return axios.get("/getUsers");	
+	}, 
+
+	grantAccess: function(sheetData) {
 		return axios.post("/grantaccess");
 	},
 
-	withdrawAccess: function(userData) {
-		return axios.delete("/withdrawaccess/" + userData.sheetId + "/" + userData.sharedUserId);
+	withdrawAccess: function(sheetData) {
+		return axios.delete("/withdrawaccess/" + sheetData.sheetId + "/" + sheetData.otherUserId + "/" + sheetData.creatorUserId);
 	},
 
 	createTransaction: function(sheetData) {

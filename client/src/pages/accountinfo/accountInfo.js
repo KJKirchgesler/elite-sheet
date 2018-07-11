@@ -11,7 +11,8 @@ class AccountInfo extends Component {
     userId: "",
     createdSheets: [],
     sharedSheets: [],
-    newSheetName: ""
+    newSheetName: "",
+    otherUsers: []
   }
 
   getUserData = () => {
@@ -37,7 +38,7 @@ class AccountInfo extends Component {
     
     let sheetData = {
       newSheetName: this.state.newSheetName,
-      userId: this.state.userId
+      // userId: this.state.userId
     }
 
     if (this.state.newSheetName !== "") {
@@ -47,8 +48,9 @@ class AccountInfo extends Component {
       .then((res) => {
         let newSheet = res.data;
         let updatedSheets = this.state.createdSheets.push(newSheet);
-        console.log("updated created sheets-------")
-        console.log(this.state.createdSheets);
+        alert("New Sheet Created")
+        // console.log("updated created sheets-------")
+        // console.log(this.state.createdSheets);
       })
     } 
   }
@@ -60,8 +62,8 @@ class AccountInfo extends Component {
       this.setState({
         createdSheets: createdSheets
       })
-      // console.log("Here are the sheets this user has created-----");
-      // console.log(this.state.createdSheets);
+      console.log("Here are the sheets this user has created-----");
+      console.log(this.state.createdSheets);
     })
   }
 
@@ -72,27 +74,82 @@ class AccountInfo extends Component {
       this.setState({
         sharedSheets: sharedSheets
       })
-      // console.log("Here are the shared sheets for this user-----")
-      // console.log(res);
+      console.log("Here are the shared sheets for this user-----")
+      console.log(this.state.sharedSheets);
+    })
+  }
+
+  viewOtherUsers = () => {
+    API.viewOtherUsers().
+    then((res) => {
+      let otherUsers = res.data;
+      this.setState({
+        otherUsers: otherUsers
+      }); 
+      // console.log("Here are the other users signed up for elitesheets------");
+      // console.log(this.state.otherUsers);
     })
   }
 
   grantAccess = event => {
+    //Kristen: I'll let you figure out exactly how how you want to get the sheetId and the other user's Id. Just put the data in an object:
 
+    let sheetData = {
+      sheetId: "",
+      otherUserId: "",
+      creatorUserId: ""//this is logged in user id
+    }
+
+    API.grantAccess(sheetData)
+    .then((res) => {
+      console.log('access granted to ' + sheetData.otherUserId + " for sheet " + sheetData.sheetId);
+      alert("Access granted.")
+      this.viewCreated();
+    }).catch((err) => {
+      console.log(err);
+      alert("There was an error with the server. Please try again.")
+    })
+    
   }
 
   withdrawAccess = event => {
+    //Kristen: I'll let you figure out exactly how how you want to get the sheetId and the other user's Id. Just put the data in an object:
 
+    let sheetData = {
+      sheetId: "",
+      otherUserId: "",
+      creatorUserId: ""//this is logged in user id
+    }
+
+    API.withdrawAccess(sheetData)
+    .then((res) => {
+      console.log("access withdrawn from sheet " + sheetData.sheetId + " for user " + sheetData.creatorUserId)
+    }).catch((err) => {
+      console.log(err);
+      alert("There was an error with the server. Please try again.")
+    })
   }
 
   viewSheet = event => {
+    let sheetData = {
+      sheetId: "",
+      userId: ""
+    }
 
+    API.viewSheet(sheetData)
+    .then((res) => {
+      console.log(res)
+    }).catch((err) => {
+      console.log(err);
+      alert("There was an error with the server. Please try again.")
+    })
   }
 
   componentDidMount() {
     this.getUserData();
     this.viewCreated();
     this.viewShared();
+    this.viewOtherUsers();
   }
 
   handleInputChange = event => {
@@ -267,10 +324,7 @@ class AccountInfo extends Component {
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-    </div>
-=======
->>>>>>> 004e8d6c63964f3ad5d4bfeaeec1fdb7ea169fc7
+  
     )}
 }
 
