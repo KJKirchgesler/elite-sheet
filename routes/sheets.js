@@ -247,6 +247,7 @@ router.post("/createtransaction", function(req, res) {
 
 router.delete("/deletetransaction/:sheetRecords/:userSheet", function(req, res) {
 	console.log(req.body)
+	
 	let transaction = req.body.id;
 
 	db.Transaction.destroy({
