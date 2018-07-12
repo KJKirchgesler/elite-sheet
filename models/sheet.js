@@ -16,7 +16,8 @@ module.exports = function(sequelize, DataTypes) {
    })
 
    Sheet.hasMany(models.Transaction, {
-     as: 'Transaction'
+     as: 'Transaction',
+     foreignKey: 'sheetId'
    })
  }
 

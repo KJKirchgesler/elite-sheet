@@ -61,6 +61,11 @@ module.exports = function(sequelize, DataTypes) {
      allowNull: false
    },
 
+   sheetId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+   }
+
  });
  
  return Transaction;

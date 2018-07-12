@@ -17,7 +17,7 @@ const App = () => (
         <Route exact path="/signup" component={Detail} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/accountinfo" component={AccountInfo} />
-        <Route exact path="/viewchart" component={ViewChart} />
+        <Route path="/viewchart/:sheetId/:userId" component={ViewChart} />
         <Route exact path="/forgot" component={ForgotPassword} />
         <Route path="/reset/:token" component={ResetPassword} />
       </Switch>

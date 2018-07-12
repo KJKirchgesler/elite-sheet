@@ -6,11 +6,11 @@ import BarChartComponent from "./BarChartComponent"
 class ViewChart extends Component {
 
   state = {
-    email: "",
-    password: "",
-    confirmPassword: "",
-    name: "",
-    errorMessage:""
+    userName: "",
+    userEmail: "",
+    userId: "",
+    transactions: [],
+    collaborators: []
   }
 
   handleInputChange = event => {
@@ -21,52 +21,70 @@ class ViewChart extends Component {
     });
   }
 
-  handleSubmit = event => {
-    event.preventDefault();
-
-    let userData = {
-      email: this.state.email,
-      password: this.state.password,
-      name: this.state.name
-    }
-
-    if (!userData.email || !userData.password || !this.state.confirmPassword || !userData.name) {
-      this.setState({
-        errorMessage: "Please ensure all fields are filled."
-      });
-      return;
-    }
-
-    if (this.state.password !== this.state.confirmPassword) {
-      this.setState({
-        errorMessage: "Please ensure your passwords match."
-      });
-      return;
-    }
-
-    if (this.state.password.length < 6 ) {
-      this.setState({
-        errorMessage: "Please ensure your password is at least 6 characters long."
-      });
-      return;
-    }
-
-    API.signup(userData)
+  getUserData = () => {
+    API.getUserData()
     .then((res) => {
-      // console.log(res);
-      if (res.data.errors) {
-        this.setState({
-          errorMessage: "There was an error with the server:\n" + res.data.errors[0].message
-        })
-      } else {
+      //console.log(res.data.email);
+      if (res.data.name === undefined) {
         window.location.replace("/login");
+      } else {
+        this.setState({
+          userName: res.data.name,
+          userEmail: res.data.email,
+          userId: res.data.id
+        })
       }
     }).catch((err) => {
       console.log(err);
-      this.setState({
-        errorMessage: "There was an error. Please try again."
-      });
     })
+  }
+
+  viewSheet = () => {
+    let pathArray = window.location.pathname.split("/");
+    let sheetId = pathArray[2];
+    let userId = pathArray[3];
+
+    let sheetData = {
+      sheetId: sheetId,
+      userId: userId
+    }
+
+    API.viewSheet(sheetData)
+    .then((res) => {
+      let transactions = res.data.Transaction;
+      this.setState({
+        transactions: transactions
+      });
+      console.log("here are the transactions for this sheet-------")
+      console.log(this.state.transactions);
+    }).catch((err) => {
+      console.log(err);
+      window.location.replace("/login");
+    })
+  }
+
+  viewCollaborators = () => {
+    let pathArray = window.location.pathname.split("/");
+    let sheetId = pathArray[2];
+    let userId = pathArray[3];
+
+    API.viewCollaborators(sheetId)
+    .then((res) => {
+      let collaborators = res.data;
+      this.setState({
+        collaborators: collaborators
+      });
+      console.log("Here are the collaborators on this sheet:")
+      console.log(this.state.collaborators)
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  componentDidMount() {
+    this.getUserData();
+    this.viewSheet();
+    this.viewCollaborators();
   }
 
   render() {

@@ -199,42 +199,54 @@ router.delete("/withdrawaccess/:sheetId/:otherUserId/:creatorUserId", function(r
  	});
 });
 
-router.get("/createtransaction", function(req, res) {
+router.post("/createtransaction", function(req, res) {
+	console.log(req.body);
 
- 	console.log(req.user)
- 	res.json(userData);
-});
-	//console.log(req.body);
-	var Transaction = {};
-	
-	 db.Transaction.create({
-		 where: {
-			 transaction: {
-				companyName: companyName,
-			 	invoiceNumber: invoiceNum,
-				vendorNumber: vendorId,
-				itemNumber: itemNumber,
-				creditNumber: creditNumber,
-				debitNumber: debitNumber,
-				totalBalance: totalBalance,
-				dueDate: dueDate,
-				amountPastDue: amountPastDue,
-				departmentName: departmentName,
-				locationName: locationName,
-				representativeName: representativeName,
-				SheetId: sheetId
-				 }
-			}
-		}).then(function(dbTransaction) {
-		res.json(userData);
-		console.log(req.body);
-		}).catch(function (err) {
+	//format for dummy data to submit via insomnia/postman:
+	// {
+	// 	"companyName": "Bob",
+	// 	"invoiceNumber": "002023",
+	// 	"vendorNumber": "23134",
+	// 	"itemNumber": 345634,
+	// 	"creditNumber": "34jk1343",
+	// 	"debitNumber": "afjk234234",
+	// 	"totalBalance": 123.23,
+	// 	"dueDate": "2018-07-11 13:38:58",
+	// 	"amountPastDue": "2018-07-11 13:38:58",
+	// 	"departmentName": "Sales",
+	// 	"locationName": "City of choice",
+	// 	"representativeName": "Bobby Jr",
+	// 	"SheetId": 1
+	// }
+
+	//*When this is really working, companyName will be equivalent to the name of the user who is creating the transaction. So something like:
+	//let companyName = req.user.name
+
+  db.Transaction.create({
+			companyName: req.body.companyName,//in production, req.user.name
+		 	invoiceNumber: req.body.invoiceNumber,
+			vendorNumber: req.body.vendorNumber,
+			itemNumber: req.body.itemNumber,
+			creditNumber: req.body.creditNumber,
+			debitNumber: req.body.debitNumber,
+			totalBalance: req.body.totalBalance,
+			dueDate: req.body.dueDate,
+			amountPastDue: req.body.amountPastDue,
+			departmentName: req.body.departmentName,
+			locationName: req.body.locationName,
+			representativeName: req.body.representativeName,
+			sheetId: req.body.sheetId
+	}).then(function(dbTransaction) {
+		console.log("new transaction created");
+		res.status(200).send("new transaction created");
+	}).catch(function (err) {
 		console.log(err);
-		});
+		res.status(500).send("server error")
+	});
+});
 
-
-router.get("/viewsheet", function(req, res) {
-	let sessionUserId = req.user.id;//*make sure this works later on*
+router.get("/viewsheet/:sheetId/:userId", function(req, res) {
+	let sessionUserId = req.body.id;//*make sure this works later on*
 	let requestUserId = req.body.userId;
 
 	if (sessionUserId !== requestUserId) {
@@ -243,8 +255,10 @@ router.get("/viewsheet", function(req, res) {
 		return;
 	}
 
-	let userId = req.user.id;
-	let sheetId = req.body.sheetId;
+	console.log("data submitted to find transactions for a sheet:")
+
+	let userId = req.params.userId;
+	let sheetId = req.params.sheetId;
 
  	db.UserSheet.findOne({
  		where: {
@@ -274,16 +288,13 @@ router.get("/viewsheet", function(req, res) {
 										 'amountPastDue',
 										 'departmentName',
 										 'locationName',
-										 'representativeName'],
+										 'representativeName',
+										 'SheetId'],
 			}]	
 		}).then(function(result) {
-			let transactions = [];
-			for (i = 0; i < result.dataValues.Transaction.length; i++) {
-				transactions.push(result.dataValues.Transaction[i].dataValues);
-			}
-			console.log("transactions for sheet " + sheetId)
-			console.log(transactions)
-			res.json(transactions);
+			console.log("transactions found")
+			// console.log(result.dataValues)
+			res.json(result);
 		})
 
  	}).catch(function(err) {
@@ -319,19 +330,19 @@ router.get("/getUsers", function(req, res) {
 	
 });
 
-// router.get("/viewCollaborators/:sheetId", function(req, res) {
-// 	//console.log(req.body)
-// 	const {sheetId} = req.params;
-// 	db.UserSheet.findAll({
-// 		where: {sheetId},
-// 		include: ['User']
-// 	}).then((result) => {
-// 		res.json(result);
-// 	}).catch(function(err) {
-// 		console.log(err);
-// 		res.send(err);
-// 	})
-// });
+router.get("/viewCollaborators/:sheetId", function(req, res) {
+	//console.log(req.body)
+	const {sheetId} = req.params;
+	db.UserSheet.findAll({
+		where: {sheetId},
+		include: ['User']
+	}).then((result) => {
+		res.json(result);
+	}).catch(function(err) {
+		console.log(err);
+		res.send(err);
+	})
+});
 
 module.exports = router;
 

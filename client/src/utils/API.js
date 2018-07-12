@@ -54,7 +54,11 @@ export default {
 	},
 
 	viewSheet: function(sheetData) {
-		return axios.get("/viewsheet", sheetData);
+		return axios.get("/viewsheet/" + sheetData.sheetId + "/" + sheetData.userId);
 	},
+
+	viewCollaborators: function(sheetId) {
+		return axios.get("/viewCollaborators/" + sheetId)
+	}
 
 }

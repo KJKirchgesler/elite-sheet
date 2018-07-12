@@ -131,18 +131,10 @@ class AccountInfo extends Component {
   }
 
   viewSheet = event => {
-    let sheetData = {
-      sheetId: "",
-      userId: ""
-    }
+    let userId = this.state.userId;
+    let sheetId = "";
 
-    API.viewSheet(sheetData)
-    .then((res) => {
-      console.log(res)
-    }).catch((err) => {
-      console.log(err);
-      alert("There was an error with the server. Please try again.")
-    })
+    window.location.replace("/viewchart/" + sheetId + "/" + userId);
   }
 
   componentDidMount() {
