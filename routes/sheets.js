@@ -245,6 +245,22 @@ router.post("/createtransaction", function(req, res) {
 	});
 });
 
+router.delete("/deletetransaction/:sheetRecords/:userSheet", function(req, res) {
+	console.log(req.body)
+	let transaction = req.body.id;
+
+	db.Transaction.destroy({
+		where: {
+			id: req.params.id,
+		}
+	}).then(function(result) {
+		return transaction.destroy();
+	}).catch(function (err) {
+			console.log(err);
+			res.json(err);
+		});
+});
+
 router.get("/viewsheet/:sheetId/:userId", function(req, res) {
 	let sessionUserId = req.body.id;//*make sure this works later on*
 	let requestUserId = req.body.userId;
