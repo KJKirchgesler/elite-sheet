@@ -7,7 +7,27 @@ class Login extends Component {
   state = {
     email: "",
     password: "",
-    errorMessage: ""
+    errorMessage: "",
+    stayLoggedIn: false
+  }
+
+  getUserData = () => {
+    API.getUserData()
+    .then((res) => {
+      //console.log(res.data.email);
+      if (res.data.name) {
+        API.logout()
+        .then((res) => {
+          window.location.replace("/login");
+        })
+      }
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  componentDidMount() {
+    this.getUserData();
   }
 
   handleInputChange = event => {
@@ -20,6 +40,16 @@ class Login extends Component {
 
   handleInputChange = event => {
     const {name, value} = event.target;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleCheckBox = event => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
 
     this.setState({
       [name]: value
@@ -32,6 +62,7 @@ class Login extends Component {
     let userData = {
       email: this.state.email,
       password: this.state.password,
+      remember_me: this.state.stayLoggedIn
     }
 
     if (!userData.email || !userData.password) {
@@ -107,7 +138,7 @@ class Login extends Component {
           <h1>Login</h1>
           {this.state.errorMessage ? 
               (<p>{this.state.errorMessage}</p>) :
-              (<p>Please complete the form below to log in to eliteSheets.</p>)}
+              (<p>Please complete the form below to log in to eliteSheets. If another user was logged in, he or she has been automatically logged out.</p>)}
             <form className="login">
                 <div className="form-group">
                     <label htmlFor="inputEmail">Email Address</label>
@@ -129,6 +160,15 @@ class Login extends Component {
                 </div>
                 <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Login</button>
                 <a href="/forgot">Forgot my password</a>
+                <br/>
+                <label>   
+                  <input
+                    name="stayLoggedIn"
+                    type="checkbox"
+                    checked={this.state.stayLoggedIn}
+                    onChange={this.handleCheckBox} />
+                    Keep me logged in
+                </label>
             </form>
         </div>
       </div>

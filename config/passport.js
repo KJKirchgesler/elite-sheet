@@ -1,5 +1,7 @@
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
+var RememberMeStrategy = require('passport-remember-me').Strategy;
+const utils = require("../routes/utils.js");
 
 var db = require("../models");
 
@@ -31,6 +33,44 @@ passport.use(new LocalStrategy(
       // If none of the above, return the user
       return done(null, dbUser);
     });
+  }
+));
+
+passport.use(new RememberMeStrategy(
+  function(token, done) {
+    db.RememberMeTokens.destroy({
+      where: {
+        token: token
+      }
+    }).then(function(tokenRow) {
+
+      db.User.findOne({
+        where: {
+          id: tokenRow.userId
+        }
+      }).then(function(user) {
+        return done(null, user)
+      }).catch(function(err) {
+        console.log(err);
+      })
+
+
+    }).catch(function(err) {
+      console.log(err)
+    })
+  },
+  function(user, done) {
+    var token = utils.randomString(64)
+
+    db.RememberMeTokens.create({
+      token: token,
+      userId: req.user.id
+    }).then(function(result) {
+      res.cookie("remember_me", result.dataValues.token, {path: "/", httpOnly: true, maxAge: 604800000})
+      return next();
+    }).catch(function(err) {
+      console.log(err)
+    })
   }
 ));
 

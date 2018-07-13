@@ -5,13 +5,33 @@ const sgMail = require("@sendgrid/mail")
 const sendgridAPIkey = require("../sendgrid-api-key.js")
 const crypto = require("crypto");
 const Op = require("sequelize").Op
+const utils = require("./utils.js");
 // const Op = Sequelize.Op;
 
 
-router.post("/login", passport.authenticate("local"), function(req, res) {
-	//console.log(req.body);
-  res.status(200).send("user logged in");
-});
+router.post("/login", passport.authenticate("local"), 
+  function(req, res, next) {
+	// issue a remember me cookie if the option was checked
+    if (!req.body.remember_me) { return next(); }
+
+    //console.log(utils);
+    var token = utils.randomString(64)
+
+    db.RememberMeTokens.create({
+      token: token,
+      userId: req.user.id
+    }).then(function(result) {
+      res.cookie("remember_me", result.dataValues.token, {path: "/", httpOnly: true, maxAge: 604800000})
+      return next();
+    }).catch(function(err) {
+      res.json(err);
+    })
+  },
+
+  function(req, res) {
+    res.status(200).send("user logged in");
+  }
+);
 
 router.post("/signup", function(req, res) {
 	db.User.create({
@@ -29,8 +49,19 @@ router.post("/signup", function(req, res) {
 });
 
 router.get("/logout", function(req, res) {
+  db.RememberMeTokens.destroy({
+    where: {
+      userId: req.user.id
+    }
+  }).then(function(res) {
+    console.log("user logged out");
+    
+  }).catch(function(err) {
+    res.json(err);
+  });
+
+  res.clearCookie('remember_me');
   req.logout();
-  console.log("user logged out");
   res.send("user logged out");
 });
 
