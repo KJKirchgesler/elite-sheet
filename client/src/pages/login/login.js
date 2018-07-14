@@ -14,15 +14,13 @@ class Login extends Component {
   getUserData = () => {
     API.getUserData()
     .then((res) => {
-      //console.log(res.data.email);
+      //console.log(res.data.name);
       if (res.data.name) {
-        API.logout()
-        .then((res) => {
-          window.location.replace("/login");
-        })
+        window.location.replace("/");
       }
     }).catch((err) => {
       console.log(err);
+      window.location.replace("/");
     })
   }
 

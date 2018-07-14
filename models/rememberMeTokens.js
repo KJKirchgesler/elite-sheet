@@ -1,3 +1,5 @@
+var bcrypt = require("bcrypt-nodejs");
+
 module.exports = function(sequelize, DataTypes) {
  var RememberMeTokens = sequelize.define('RememberMeTokens', {
 
@@ -11,7 +13,13 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
 
+  }, {
+    hooks: {
+      beforeCreate: function (user, options) {
+        user.token = bcrypt.hashSync(user.token, bcrypt.genSaltSync(10), null);
+        options.individualHooks = true;
+      },
+    }
   });
-
   return RememberMeTokens;
 };

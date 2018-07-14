@@ -38,6 +38,7 @@ passport.use(new LocalStrategy(
 
 passport.use(new RememberMeStrategy(
   function(token, done) {
+    console.log("inside remember me strategy")
     db.RememberMeTokens.destroy({
       where: {
         token: token
