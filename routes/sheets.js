@@ -255,7 +255,7 @@ router.delete("/deletetransaction/:sheetRecords/:userSheet", function(req, res) 
 			id: req.params.id,
 		}
 	}).then(function(result) {
-		return transaction.destroy();
+		res.json(dbTransaction)
 	}).catch(function (err) {
 			console.log(err);
 			res.json(err);
@@ -361,7 +361,48 @@ router.get("/viewCollaborators/:sheetId", function(req, res) {
 	})
 });
 
+router.post("/createchart", function(req, res) {
+	console.log(req.body);
+	
+  db.Chart.create({
+		userName: req.body.userName,
+		userEmail: req.body.userEmail,
+		userId: req.body.userId,
+		transactions: req.body.transactions,
+		collaborators: req.body.vendorNumber
+	}).then(function(dbChart) {
+		console.log("new chart created");
+		res.status(200).send("new chart created");
+	}).catch(function (err) {
+		console.log(err);
+		res.status(500).send("server error")
+	});
+});
+
+router.delete("/deletechart/:userName/:userEmail/:userId/:transactions/:collaborators", function(req, res) {
+	console.log(req.body)
+	
+	db.Chart.destroy({
+
+		where: {
+			userName: req.body.userName,
+			userEmail: req.body.userEmail,
+			userId: req.body.userId,
+			transactions: req.body.transactions,
+			collaborators: req.body.vendorNumber
+		}
+	}).then(function(result) {
+		res.json(dbChart)
+	}).catch(function (err) {
+			console.log(err);
+			res.json(err);
+		});
+});
 module.exports = router;
 
 
-//delete route transaction, sheet records, user sheet
+
+
+
+
+
