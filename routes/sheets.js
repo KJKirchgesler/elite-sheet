@@ -383,7 +383,6 @@ router.delete("/deletechart/:userName/:userEmail/:userId/:transactions/:collabor
 	console.log(req.body)
 	
 	db.Chart.destroy({
-
 		where: {
 			userName: req.body.userName,
 			userEmail: req.body.userEmail,
