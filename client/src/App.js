@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import AccountInfo from "./pages/accountinfo/accountInfo";
+import CreateSheet from "./pages/CreateSheet/CreateSheet";
 import ViewChart from "./pages/viewChart/chart";
 
 
@@ -17,6 +18,7 @@ const App = () => (
         <Route exact path="/signup" component={Detail} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/accountinfo" component={AccountInfo} />
+        <Route exact path="/createsheet" component={CreateSheet} />
         <Route path="/viewchart/:sheetId/:userId" component={ViewChart} />
         <Route exact path="/forgot" component={ForgotPassword} />
         <Route path="/reset/:token" component={ResetPassword} />
