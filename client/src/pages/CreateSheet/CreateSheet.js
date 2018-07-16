@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API.js"
+import InvoiceModal from "../../components/InvoiceModal";
 import Table from "../../components/Table";
 import { Input, TextArea, FormBtn, FormBtnLeft, FormBtnRight } from "../../components/Form";
 
@@ -152,6 +153,18 @@ class CreateSheet extends Component {
           [name]: value
         });
       }
+
+      constructor(props) {
+        super(props);
+    
+        this.state = { isOpen: false };
+      }
+    
+      toggleInvoiceModal = () => {
+        this.setState({
+          isOpen: !this.state.isOpen
+        });
+      }
     
       render() {
         return (
@@ -210,6 +223,10 @@ class CreateSheet extends Component {
               <h2>Welcome!</h2>
               <h3>User: {this.state.userName}</h3>
               <h3>Email: {this.state.userEmail}</h3>
+              <FormBtn onClick={this.toggleInvoiceModal}>Add Invoice</FormBtn>
+              <InvoiceModal show={this.state.isOpen}
+	                onClose={this.toggleInvoiceModal}>
+                </InvoiceModal>
               
     
               <div className="card mt-2">
