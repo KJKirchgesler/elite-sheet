@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import API from "../../utils/API.js"
+import API from "../../utils/API.js";
+import Table from "../../components/Table";
 import { Input, TextArea, FormBtn, FormBtnLeft, FormBtnRight } from "../../components/Form";
 
 class AccountInfo extends Component {
@@ -48,7 +49,8 @@ class AccountInfo extends Component {
       .then((res) => {
         let newSheet = res.data;
         let updatedSheets = this.state.createdSheets.push(newSheet);
-        alert("New Sheet Created")
+        alert("New Sheet Created");
+        window.location.replace("/createsheet");
         // console.log("updated created sheets-------")
         // console.log(this.state.createdSheets);
       })
@@ -152,6 +154,8 @@ class AccountInfo extends Component {
     });
   }
 
+
+
   render() {
     return (
       <div className="container">
@@ -214,13 +218,13 @@ class AccountInfo extends Component {
           <div className="card mt-3">
             <div className="card-body">
               <form className="form-inline">
-                <FormBtn onClick={this.createSheet}>Create a new eliteSheet</FormBtn>
-                  <Input    
+              <Input    
                     className="form-control ml-3"
                     placeholder="New sheet name"
                     name="newSheetName"
                     onChange={this.handleInputChange}
                   />
+                    <FormBtn onClick={this.createSheet}>Create a new eliteSheet</FormBtn>  
               </form>
  
             <div className="card mt-3">
@@ -311,10 +315,24 @@ class AccountInfo extends Component {
                   </div>
                 </div>
               </div>
+          
+
             </div>
+
+            <div className="card mt-2">
+                  <div className="card-body">
+                    <form className="form-inline">
+                      <h5 className="card-title">eliteSheet Data</h5>
+                      
+                    </form>
+                    <Table></Table>
+                  </div>
+                </div>
+
           </div>
         </div>
       </div>
+      
     </div>
   
     )}
