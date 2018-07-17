@@ -139,6 +139,24 @@ class AccountInfo extends Component {
     window.location.replace("/viewchart/" + sheetId + "/" + userId);
   }
 
+  deleteSheet = event => {
+    let sheetData = {
+      sheetId: "",//get this from button???
+      userId: this.state.userId
+    }
+
+    API.deleteSheet(sheetData)
+    .then((res) => {
+      console.log("sheet deleted")
+      this.viewCreated();
+      this.viewShared();
+    }).catch(function(err) {
+      console.log(err);
+      alert("There was an error with the server. Please try again.")
+    })
+
+  }
+
   componentDidMount() {
     this.getUserData();
     this.viewCreated();

@@ -101,8 +101,21 @@ class ViewChart extends Component {
   }
 
   transChanged = (trans) => {
-    alert("New Transaction");
-    console.log("trans", trans)
+    let pathArray = window.location.pathname.split("/");
+    let URLSheetId = pathArray[2];
+    
+    // console.log(URLSheetId);
+    // console.log(trans.sheetId);
+    // console.log(parseInt(trans.sheetId) == URLSheetId)
+
+    if (parseInt(trans.sheetId) == URLSheetId) {
+      console.log("match")
+      let updatedTransactions = this.state.transactions.push(trans)
+      this.setState({
+        transactions: updatedTransactions
+      })
+      alert("New transaction for this sheet");
+    }
   }
 
   componentDidMount() {
@@ -115,6 +128,23 @@ class ViewChart extends Component {
 
   componentWillUnmount() {
     socket.off("transactionChanged", this.transChanged);
+  }
+
+  deleteTransaction = event => {
+    let transactionData = {
+      sheetId: this.state.sheetData.id,
+      transactionId: "",//get this from button???
+      userId: this.state.userId
+    }
+
+    API.deleteTransaction(transactionData)
+    .then((res) => {
+      console.log("transaction deleted");
+      //this.viewSheet();
+    }).catch((err) => {
+      console.log(err);
+      alert("There was an error with the server. Please try again.")
+    })
   }
 
   render() {

@@ -63,6 +63,15 @@ export default {
 
 	getSheetData: function(sheetId) {
 		return axios.get("/api/getSheetData/" + sheetId);
+	},
+
+	deleteTransaction: function(transactionData) {
+		return axios.delete("/api/deletetransaction/"+ transactionData.sheetId + "/" + 
+			transactionData.transactionId + "/" + transactionData.userId)
+	},
+
+	deleteSheet: function(sheetData) {
+		return axios.delete("/api/deletesheet/" + sheetData.sheetId + "/" + sheetData.userId)
 	}
 
 }

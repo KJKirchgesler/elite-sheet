@@ -113,12 +113,14 @@ router.post("/forgotPassword", function(req, res, next) {
         
         const msg = {
           to: userEmail,
-          from: 'resetpassword@elitesheets.com',
+          from: 'resetpassword@elitesheets.herokuapp.com',
           subject: 'eliteSheets Password Reset',
-          text: "You are receiveing this because you (or someone else) have requested a reset of the password for your account.\n\n" + 
+          text: "Hello eliteSheets user,\n\n" + "You are receiveing this because you (or someone else) have requested a reset of the password for your account.\n\n" + 
           "Please click on the following link, or paste this into your browser to complete the process:\n\n" + 
           "http://elitesheets.herokuapp.com/reset/" + token + "\n\n" +
-          "If you did not request this, please ignore this email and your password will remain unchanged.\n\n",
+          "If you did not request this, please ignore this email and your password will remain unchanged.\n\n" +
+          "Sincerely,\n\nYour friends at eliteSheets\n\n" +
+          "elitesheets.herokuapp.com",
         }
 
         sgMail.send(msg);
@@ -167,7 +169,9 @@ router.post("/resetPassword", function(req, res) {
         subject: 'Your eliteSheets password has been changed',
         text: "Hello eliteSheets user,\n\n"
         + "This is a confirmation that the password for the eliteSheets account with the email " + user.email + " has been changed." +
-        "\n\nIf you did not intend to change your password, please proceed to the eliteSheets login page and click 'Forgot my password.'",
+        "\n\nIf you did not intend to change your password, please proceed to the eliteSheets login page and click 'Forgot my password' to reset it again.\n\n" +
+        "Sincerely,\n\nYour friends at eliteSheets\n" +
+          "elitesheets.herokuapp.com",
       }
 
       sgMail.send(msg);
