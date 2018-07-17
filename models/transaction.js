@@ -26,11 +26,6 @@ module.exports = function(sequelize, DataTypes) {
      allowNull: false
    },
 
-   debitNumber: {
-     type: DataTypes.STRING,
-     allowNull: false
-   },
-
    totalBalance: {
      type: DataTypes.DECIMAL(11,2),
      allowNull: false

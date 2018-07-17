@@ -88,8 +88,8 @@ class AccountInfo extends Component {
       this.setState({
         otherUsers: otherUsers
       }); 
-      // console.log("Here are the other users signed up for elitesheets------");
-      // console.log(this.state.otherUsers);
+      console.log("Here are the other users signed up for elitesheets------");
+      console.log(this.state.otherUsers);
     })
   }
 
@@ -253,22 +253,13 @@ class AccountInfo extends Component {
                 <div className="card-body">
                   <form className="form-inline">
                     <h5 className="card-title">sheetName with Company</h5>
-          
-                      <div className="dropdown">
-                        <button className="btn btn-outline-secondary dropdown-toggle" 
-                          type="button" id="dropdownMenuButton" 
-                          data-toggle="dropdown" 
-                          aria-haspopup="true" 
-                          aria-expanded="false"
-                          className="form-control ml-5 mr-3"
-                        >
-                          Invite a company to join
-                        </button>
-                          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a className="dropdown-item" href="#">Action</a>
-                            <a className="dropdown-item" href="#">Another action</a>
-                            <a className="dropdown-item" href="#">Something else here</a>
-                          </div>
+                      <div class="form-group">
+                        <label for="sel1">To grant access to this sheet to another user, select another user from this list:</label>
+                        <select class="form-control" id="sel1">
+                          {this.state.otherUsers.map((user) => 
+                            <option value={user.id}>{user.name}</option>
+                          )}
+                        </select>
                       </div>
                       <div className="btn-group ml-auto" role="group">
                       <FormBtn>Invite</FormBtn>
