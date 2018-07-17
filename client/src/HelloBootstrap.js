@@ -20,7 +20,7 @@ class HelloBootstrap extends Component {
       </div>
       <div className="card-body">
         <p className="card-text">
-        An app tracking receivables and payables between at least two companies. A user signs up, logs in, and can create new eliteSheets and view eliteSheets to which other users have granted them access. On each eliteSheet, a company representative can add new transactions and see how they balance with transactions from the other company. It allows two or more companies to keep a close eye on their transactions and ensure that each company’s balance is paid accurately and on time.
+        It's an app tracking receivables and payables between at least two companies. A user signs up, logs in, and can create new eliteSheets and view eliteSheets to which other users have granted them access. On each eliteSheet, a company representative can add new transactions and see how they balance with transactions from the other company. It allows two or more companies to keep a close eye on their transactions and ensure that each company’s balance is paid accurately and on time.
         </p>
       </div>
     </div>
