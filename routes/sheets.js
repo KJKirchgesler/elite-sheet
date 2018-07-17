@@ -257,9 +257,9 @@ router.delete("/deletetransaction/:sheetRecords/:userSheet", function(req, res) 
 	}).then(function(result) {
 		res.json(dbTransaction)
 	}).catch(function (err) {
-			console.log(err);
-			res.json(err);
-		});
+		console.log(err);
+		res.json(err);
+	});
 });
 
 router.get("/viewsheet/:sheetId/:userId", function(req, res) {
@@ -361,23 +361,23 @@ router.get("/viewCollaborators/:sheetId", function(req, res) {
 	})
 });
 
-router.post("/createchart", function(req, res) {
-	console.log(req.body);
-	
-  db.Chart.create({
-		userName: req.body.userName,
-		userEmail: req.body.userEmail,
-		userId: req.body.userId,
-		transactions: req.body.transactions,
-		collaborators: req.body.vendorNumber
-	}).then(function(dbChart) {
-		console.log("new chart created");
-		res.status(200).send("new chart created");
-	}).catch(function (err) {
+router.get("/getSheetData/:sheetId", function(req, res) {
+	const sheetId = req.params.sheetId;
+	console.log("here is the sheet id")
+	console.log(sheetId);
+
+	db.Sheet.findOne({
+		where: {
+			id: sheetId
+		}
+	}).then(function(result) {
+		//console.log(result);
+		res.json(result);
+	}).catch(function(err) {
 		console.log(err);
-		res.status(500).send("server error")
+		res.json(err);
 	});
-});
+})
 
 router.delete("/deletechart/:userName/:userEmail/:userId/:transactions/:collaborators", function(req, res) {
 	console.log(req.body)

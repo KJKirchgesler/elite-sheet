@@ -43,7 +43,9 @@
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.4.1",
     "reactstrap": "^6.3.0",
-    "sequelize": "^4.38.0"
+    "sequelize": "^4.38.0",
+    "ws": "^5.2.2",
+    "ws-server-wrapper": "^1.4.1"
   },
   "description": ""
 }

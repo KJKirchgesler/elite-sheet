@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import API from "../../utils/API.js"
-import BarChartComponent from "./BarChartComponent"
+import API from "../../utils/API.js";
+import BarChartComponent from "./BarChartComponent";
+import socket from "../../utils/socketAPI";
 
 
 class ViewChart extends Component {
@@ -10,7 +11,8 @@ class ViewChart extends Component {
     userEmail: "",
     userId: "",
     transactions: [],
-    collaborators: []
+    collaborators: [],
+    sheetData: {}
   }
 
   handleInputChange = event => {
@@ -81,10 +83,38 @@ class ViewChart extends Component {
     });
   }
 
+  getSheetData = () => {
+    let pathArray = window.location.pathname.split("/");
+    let sheetId = pathArray[2];
+    
+    API.getSheetData(sheetId)
+    .then((res) => {
+      this.setState({
+        sheetData: res.data
+      });
+
+      console.log("here is the sheet data ----------")
+      console.log(this.state.sheetData);
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  transChanged = (trans) => {
+    alert("New Transaction");
+    console.log("trans", trans)
+  }
+
   componentDidMount() {
     this.getUserData();
     this.viewSheet();
     this.viewCollaborators();
+    this.getSheetData();
+    socket.on("transactionChanged", this.transChanged);
+  }
+
+  componentWillUnmount() {
+    socket.off("transactionChanged", this.transChanged);
   }
 
   render() {
@@ -140,7 +170,7 @@ class ViewChart extends Component {
           </div>
         </nav>
         <div className="jumbotron">
-        <BarChartComponent/>
+        <BarChartComponent />
       </div>
     </div>
     )}

@@ -117,7 +117,7 @@ router.post("/forgotPassword", function(req, res, next) {
           subject: 'eliteSheets Password Reset',
           text: "You are receiveing this because you (or someone else) have requested a reset of the password for your account.\n\n" + 
           "Please click on the following link, or paste this into your browser to complete the process:\n\n" + 
-          "http://" + req.headers.host + "/reset/" + token + "\n\n" +
+          "http://elitesheets.herokuapp.com/reset/" + token + "\n\n" +
           "If you did not request this, please ignore this email and your password will remain unchanged.\n\n",
         }
 
