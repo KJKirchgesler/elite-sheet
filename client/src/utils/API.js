@@ -42,7 +42,7 @@ export default {
 	}, 
 
 	grantAccess: function(sheetData) {
-		return axios.post("/api/grantaccess");
+		return axios.post("/api/grantaccess", sheetData);
 	},
 
 	withdrawAccess: function(sheetData) {
@@ -71,7 +71,7 @@ export default {
 	},
 
 	deleteSheet: function(sheetData) {
-		return axios.delete("/api/deletesheet/" + sheetData.sheetId + "/" + sheetData.userId)
+		return axios.delete("/api/deletesheet/" + sheetData.sheetId + "/" + sheetData.userId, {credentials: 'include'})
 	}
 
 }

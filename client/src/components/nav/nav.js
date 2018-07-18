@@ -5,15 +5,28 @@ import Logo from "../../assets/images/eliteSheetsLogo.png";
 class HelloBootstrap extends Component {
   
   state = {
-    username: ""
+    userName: "",
+    userEmail: ""
   }
 
   getUserData = () => {
+    let pathArray = window.location.pathname.split("/");
+
     API.getUserData()
     .then((res) => {
-      this.setState({
-        username: res.data.name
-      })
+     
+      if (res.data.name === undefined &&
+        pathArray[1] !== "login" &&
+        pathArray[1] !== "" &&
+        pathArray[1] !== "signup") {
+        window.location.replace("/login");
+      } else {
+        this.setState({
+          userName: res.data.name,
+          userEmail: res.data.email,
+          //userId: res.data.id
+        })
+      }
     }).catch((err) => {
       console.log(err);
     })
@@ -28,6 +41,7 @@ class HelloBootstrap extends Component {
       this.setState({
         username: ""
       })
+      window.location.replace("/login");
     }).catch((err) => {
       console.log(err);
     })
@@ -42,14 +56,15 @@ class HelloBootstrap extends Component {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <a className="navbar-brand" href="/">
             <img src={Logo}/>
-            {!this.state.username ? (
+          </a>
+            {!this.state.userName ? (
               <a href="/login"><p>Login</p></a>
               ) : (
               <div>
-                <p>Welcome, {this.state.username}</p>
+                <p>Welcome, {this.state.userName}</p>
+                <p>Email: {this.state.userEmail}</p>
                 <button onClick={this.logout}>Log Out</button>
               </div>)}
-          </a>
           <button
             className="navbar-toggler"
             data-toggle="collapse"

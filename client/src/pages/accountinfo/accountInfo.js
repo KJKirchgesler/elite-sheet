@@ -3,6 +3,7 @@ import Nav from "../../components/nav";
 import API from "../../utils/API.js";
 import Table from "../../components/Table";
 import { Input, TextArea, FormBtn, FormBtnLeft, FormBtnRight } from "../../components/Form";
+import CreatedSheet from "../../components/CreatedSheet"
 
 class AccountInfo extends Component {
 
@@ -48,10 +49,10 @@ class AccountInfo extends Component {
 
       API.createSheet(sheetData)
       .then((res) => {
-        let newSheet = res.data;
-        let updatedSheets = this.state.createdSheets.push(newSheet);
+        // let newSheet = res.data;
+        // let updatedSheets = this.state.createdSheets.push(newSheet);
         alert("New Sheet Created");
-        window.location.replace("/createsheet");
+        this.viewCreated();
         // console.log("updated created sheets-------")
         // console.log(this.state.createdSheets);
       })
@@ -94,26 +95,26 @@ class AccountInfo extends Component {
     })
   }
 
-  grantAccess = event => {
-    //Kristen: I'll let you figure out exactly how how you want to get the sheetId and the other user's Id. Just put the data in an object:
+  // grantAccess = event => {
+  //   //Kristen: I'll let you figure out exactly how how you want to get the sheetId and the other user's Id. Just put the data in an object:
 
-    let sheetData = {
-      sheetId: "",
-      otherUserId: "",
-      creatorUserId: ""//this is logged in user id
-    }
+  //   let sheetData = {
+  //     sheetId: "",
+  //     otherUserId: "",
+  //     creatorUserId: ""//this is logged in user id
+  //   }
 
-    API.grantAccess(sheetData)
-    .then((res) => {
-      console.log('access granted to ' + sheetData.otherUserId + " for sheet " + sheetData.sheetId);
-      alert("Access granted.")
-      this.viewCreated();
-    }).catch((err) => {
-      console.log(err);
-      alert("There was an error with the server. Please try again.")
-    })
+  //   API.grantAccess(sheetData)
+  //   .then((res) => {
+  //     console.log('access granted to ' + sheetData.otherUserId + " for sheet " + sheetData.sheetId);
+  //     alert("Access granted.")
+  //     this.viewCreated();
+  //   }).catch((err) => {
+  //     console.log(err);
+  //     alert("There was an error with the server. Please try again.")
+  //   })
     
-  }
+  // }
 
   withdrawAccess = event => {
     //Kristen: I'll let you figure out exactly how how you want to get the sheetId and the other user's Id. Just put the data in an object:
@@ -133,30 +134,30 @@ class AccountInfo extends Component {
     })
   }
 
-  viewSheet = event => {
-    let userId = this.state.userId;
-    let sheetId = "";
+  // viewSheet = event => {
+  //   let userId = this.state.userId;
+  //   let sheetId = "";
 
-    window.location.replace("/viewchart/" + sheetId + "/" + userId);
-  }
+  //   window.location.replace("/viewchart/" + sheetId + "/" + userId);
+  // }
 
-  deleteSheet = event => {
-    let sheetData = {
-      sheetId: "",//get this from button???
-      userId: this.state.userId
-    }
+  // deleteSheet = event => {
+  //   let sheetData = {
+  //     sheetId: "",//get this from button???
+  //     userId: this.state.userId
+  //   }
 
-    API.deleteSheet(sheetData)
-    .then((res) => {
-      console.log("sheet deleted")
-      this.viewCreated();
-      this.viewShared();
-    }).catch(function(err) {
-      console.log(err);
-      alert("There was an error with the server. Please try again.")
-    })
+  //   API.deleteSheet(sheetData)
+  //   .then((res) => {
+  //     console.log("sheet deleted")
+  //     this.viewCreated();
+  //     this.viewShared();
+  //   }).catch(function(err) {
+  //     console.log(err);
+  //     alert("There was an error with the server. Please try again.")
+  //   })
 
-  }
+  //}
 
   componentDidMount() {
     this.getUserData();
@@ -173,8 +174,6 @@ class AccountInfo extends Component {
     });
   }
 
-
-
   render() {
     return (
       <div className="container">
@@ -185,42 +184,32 @@ class AccountInfo extends Component {
           <div className="card mt-3">
             <div className="card-body">
               <form className="form-inline">
-              <Input    
-                    className="form-control ml-3"
-                    placeholder="New sheet name"
-                    name="newSheetName"
-                    onChange={this.handleInputChange}
-                  />
-                    <FormBtn onClick={this.createSheet}>Create a new eliteSheet</FormBtn>  
+                <Input    
+                  className="form-control ml-3"
+                  placeholder="New sheet name"
+                  name="newSheetName"
+                  onChange={this.handleInputChange}/>
+                <FormBtn onClick={this.createSheet}>Create a new eliteSheet</FormBtn>  
               </form>
- 
-            <div className="card mt-3">
-              <div className="card-body">
-                <h5 className="card-title">My eliteSheets</h5>
-
+              <h5 className="card-title">My own eliteSheets which I have created:</h5>
               <div className="card">
                 <div className="card-body">
-                  <form className="form-inline">
-                    <h5 className="card-title">sheetName with Company</h5>
-                      <div class="form-group">
-                        <label for="sel1">To grant access to this sheet to another user, select another user from this list:</label>
-                        <select class="form-control" id="sel1">
-                          {this.state.otherUsers.map((user) => 
-                            <option value={user.id}>{user.name}</option>
-                          )}
-                        </select>
-                      </div>
-                      <div className="btn-group ml-auto" role="group">
-                      <FormBtn>Invite</FormBtn>
-                    </div>
-                    <div className="btn-group ml-auto" role="group">
-                      <FormBtn>Go to sheet</FormBtn>
-                      <FormBtn>Delete sheet</FormBtn>
-                    </div>
-                  </form>
+                {!this.state.createdSheets.length ? (
+                    <p><i>You haven't created any of your own eliteSheets. Create one using the input and button above.</i></p>
+                ):(
+                  this.state.createdSheets.map(sheet => (
+                    <CreatedSheet key={sheet.Sheet.id}
+                                  sheetName={sheet.Sheet.name}
+                                  sheetId={sheet.Sheet.id}
+                                  sheetUsers={sheet.Sheet.User}
+                                  userId={this.state.userId}
+                                  viewCreated={this.viewCreated}
+                                  />
+                  ))
+                )}
          
 
-                <div className="card mt-3">
+                {/*<div className="card mt-3">
                   <div className="card-body">
                     <h5 className="card-title">Users that I have granted access to this sheet:</h5>
                       <div className="card mt-2">
@@ -240,13 +229,10 @@ class AccountInfo extends Component {
                         </div>
                       </div>       
                     </div>
-                  </div>
+                  </div>*/}
 
                 </div>
               </div>
-              
-            </div>
-          </div>
 
           <div className="card mt-3">
             <div className="card-body">
@@ -279,12 +265,10 @@ class AccountInfo extends Component {
 
         
 
+            </div>
           </div>
         </div>
       </div>
-      
-    </div>
-  
     )}
 }
 

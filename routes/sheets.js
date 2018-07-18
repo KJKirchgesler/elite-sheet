@@ -111,12 +111,14 @@ router.get("/viewshared", function(req, res) {
 });
 
 router.post("/grantaccess", function(req, res) {
-
+	console.log(req.body)
 	//Check if the session id matches the request user id
 	let sessionUserId = req.user.id;
 	let requestUserId = req.body.creatorUserId;
-
+console.log(typeof sessionUserId);
+		console.log(typeof requestUserId);
 	if (sessionUserId !== requestUserId) {
+
 		console.log('user ids do not match')
 		res.status(401).send("session user id and request user id do not match");
 		return;
@@ -161,7 +163,7 @@ router.delete("/withdrawaccess/:sheetId/:otherUserId/:creatorUserId", function(r
 	let sessionUserId = req.user.id;//*make sure this works later on*
 	let requestUserId = req.params.creatorUserId;
 
-	if (sessionUserId !== requestUserId) {
+	if (sessionUserId !== parseInt(requestUserId, 10)) {
 		console.log('user ids do not match')
 		res.status(401).send("session user id and request user id do not match");
 		return;
@@ -420,11 +422,11 @@ router.get("/getSheetData/:sheetId", function(req, res) {
 })
 
 router.delete("/deletesheet/:sheetId/:userId/", function(req, res) {
-	//console.log(req.body)
-	let sessionUserId = req.body.id;//*make sure this works later on*
+	console.log(req.user)
+	let sessionUserId = req.user.id;//*make sure this works later on*
 	let requestUserId = req.params.userId;
 
-	if (sessionUserId !== requestUserId) {
+	if (sessionUserId !== parseInt(requestUserId, 10)) {
 		console.log('user ids do not match')
 		res.status(401).send("session user id and request user id do not match");
 		return;
