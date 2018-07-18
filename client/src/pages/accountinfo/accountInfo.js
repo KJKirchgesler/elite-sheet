@@ -116,23 +116,23 @@ class AccountInfo extends Component {
     
   // }
 
-  withdrawAccess = event => {
-    //Kristen: I'll let you figure out exactly how how you want to get the sheetId and the other user's Id. Just put the data in an object:
+  // withdrawAccess = event => {
+  //   //Kristen: I'll let you figure out exactly how how you want to get the sheetId and the other user's Id. Just put the data in an object:
 
-    let sheetData = {
-      sheetId: "",
-      otherUserId: "",
-      creatorUserId: ""//this is logged in user id
-    }
+  //   let sheetData = {
+  //     sheetId: "",
+  //     otherUserId: "",
+  //     creatorUserId: ""//this is logged in user id
+  //   }
 
-    API.withdrawAccess(sheetData)
-    .then((res) => {
-      console.log("access withdrawn from sheet " + sheetData.sheetId + " for user " + sheetData.creatorUserId)
-    }).catch((err) => {
-      console.log(err);
-      alert("There was an error with the server. Please try again.")
-    })
-  }
+  //   API.withdrawAccess(sheetData)
+  //   .then((res) => {
+  //     console.log("access withdrawn from sheet " + sheetData.sheetId + " for user " + sheetData.creatorUserId)
+  //   }).catch((err) => {
+  //     console.log(err);
+  //     alert("There was an error with the server. Please try again.")
+  //   })
+  // }
 
   // viewSheet = event => {
   //   let userId = this.state.userId;
