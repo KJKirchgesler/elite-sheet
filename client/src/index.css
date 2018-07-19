@@ -13,11 +13,13 @@ body {
   background: white;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   color: blue;
 }
 
 button {
- background: blue;
- color: white;
+  background: blue;
+  color: white;
 }
