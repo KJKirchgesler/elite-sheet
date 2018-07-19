@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Montserrat', sans-serif;
-  background-image: url("./assets/images/mekong-green.png");
+  background-image: url("./assets/images/checkered.png");
 }
 
 .nav {
@@ -13,11 +13,13 @@ body {
   background: white;
 }
 
-h1, h2, h3 {
-  color: purple;
+h1,
+h2,
+h3 {
+  color: blue;
 }
 
 button {
- background: purple;
- color: white;
+  background: blue;
+  color: white;
 }

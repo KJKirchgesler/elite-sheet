@@ -1,7 +1,11 @@
 {
   "development": {
     "username": "root",
+<<<<<<< HEAD
     "password": "password",
+=======
+    "password": "Cardinal1",
+>>>>>>> 4dca026038c18bb020490363a7473abf865b6fb3
     "database": "elitesheet",
     "host": "127.0.0.1",
     "dialect": "mysql"
