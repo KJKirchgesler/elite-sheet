@@ -207,29 +207,6 @@ class AccountInfo extends Component {
                                   />
                   ))
                 )}
-         
-
-                {/*<div className="card mt-3">
-                  <div className="card-body">
-                    <h5 className="card-title">Users that I have granted access to this sheet:</h5>
-                      <div className="card mt-2">
-                        <div className="card-body">
-                          <form className="form-inline">
-                            <h5 className="card-title">Company 1</h5>
-                              <FormBtnRight>Withdraw Access</FormBtnRight>
-                          </form>
-                        </div>
-                      </div>
-                      <div className="card mt-2">
-                        <div className="card-body">
-                          <form className="form-inline">
-                            <h5 className="card-title">Company 2</h5>
-                              <FormBtnRight>Withdraw Access</FormBtnRight>
-                          </form>
-                        </div>
-                      </div>       
-                    </div>
-                  </div>*/}
 
                 </div>
               </div>

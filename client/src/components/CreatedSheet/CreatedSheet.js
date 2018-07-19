@@ -3,7 +3,7 @@ import API from "../../utils/API";
 import { Input, TextArea, FormBtn, FormBtnLeft, FormBtnRight } from "../../components/Form";
 
 
-class OneResult extends React.Component {
+class CreatedSheet extends React.Component {
 	state = {
 		otherUsers: [],
 		selectedUserId: "" ,
@@ -179,4 +179,4 @@ class OneResult extends React.Component {
 	}
 }
 
-export default OneResult;
+export default CreatedSheet;
