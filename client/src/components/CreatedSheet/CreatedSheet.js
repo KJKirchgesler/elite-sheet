@@ -4,12 +4,13 @@ import { Input, TextArea, FormBtn, FormBtnLeft, FormBtnRight } from "../../compo
 
 
 class CreatedSheet extends React.Component {
-	state = {
-		otherUsers: [],
-		selectedUserId: "" ,
-	}
 
-	viewOtherUsers = () => {
+  state = {
+    otherUsers: [],
+    selectedUserId: "" ,
+  }
+
+  viewOtherUsers = () => {
     API.viewOtherUsers().
     then((res) => {
       let otherUsers = res.data;
@@ -23,7 +24,7 @@ class CreatedSheet extends React.Component {
   }
 
   grantAccess = event => {
-  	event.preventDefault()
+    event.preventDefault()
 
     let sheetData = {
       sheetId: this.props.sheetId,
@@ -44,9 +45,9 @@ class CreatedSheet extends React.Component {
   }
 
   withdrawAccess = event => {
-  	event.preventDefault();
+    event.preventDefault();
 
-  	let otherUserId = event.target.value
+    let otherUserId = event.target.value
 
     let sheetData = {
       sheetId: this.props.sheetId,
@@ -60,11 +61,11 @@ class CreatedSheet extends React.Component {
 
       this.props.viewCreated();
       // this.setState({
-      // 	sheetUsers: this.state.sheetUsers.filter(function(item) {
-      // 		if (item.id !== sheetData.sheetId) {
-      // 			return item;
-      // 		}
-      // 	})
+      //  sheetUsers: this.state.sheetUsers.filter(function(item) {
+      //    if (item.id !== sheetData.sheetId) {
+      //      return item;
+      //    }
+      //  })
       // })
       //alert("Access withdrawn.")
     }).catch((err) => {
@@ -74,7 +75,7 @@ class CreatedSheet extends React.Component {
   }
 
   deleteSheet = event => {
-  	event.preventDefault();
+    event.preventDefault();
 
     let sheetData = {
       sheetId: this.props.sheetId,
@@ -92,7 +93,7 @@ class CreatedSheet extends React.Component {
   }
 
   viewSheet = event => {
-  	event.preventDefault();
+    event.preventDefault();
 
     let userId = this.props.userId;
     let sheetId = this.props.sheetId;
@@ -101,82 +102,82 @@ class CreatedSheet extends React.Component {
   }
 
   getSelectedUser = event => {
-  	this.setState({
-  		selectedUserId: event.target.value
-  	})
+    this.setState({
+      selectedUserId: event.target.value
+    })
 
-  	console.log(this.state.selectedUserId);
+    console.log(this.state.selectedUserId);
   }
 
   filterSheetUsers = () => {
-  	let allSheetUsers = this.props.sheetUsers;
-   	let filteredUsers = []
+    let allSheetUsers = this.props.sheetUsers;
+    let filteredUsers = []
 
-  	for (let i = 0; i < allSheetUsers.length; i++) {
-  		// console.log(allSheetUsers[i].UserSheet.userIsCreator)
-  		if (allSheetUsers[i].UserSheet.userIsCreator === 0) {
+    for (let i = 0; i < allSheetUsers.length; i++) {
+      // console.log(allSheetUsers[i].UserSheet.userIsCreator)
+      if (allSheetUsers[i].UserSheet.userIsCreator === 0) {
 
-  			filteredUsers.push(allSheetUsers[i])
-  		}
-  	}
-  	
-  	return filteredUsers;
-  	// this.setState({
-  	// 	sheetUsers: filteredUsers
-  	// })
+        filteredUsers.push(allSheetUsers[i])
+      }
+    }
+    
+    return filteredUsers;
+    this.setState({
+     sheetUsers: filteredUsers
+    })
   }
 
   componentDidMount() {
-  	this.viewOtherUsers();
+    this.viewOtherUsers();
   }
 
-	render() {
-		const sheetUsers = this.filterSheetUsers();
-		return (
-			<div className="card">
-				<div className="card-header">
-					<h6>{this.props.sheetName}</h6>
-				</div>
-					<div className="card-body">
-						<p>eliteSheets sheet ID: {this.props.sheetId}</p>
-						<p>Other users with access to this sheet:</p>
-						<ul>
-						{!sheetUsers.length ? (
-								<li><i>No other users have access to this sheet.</i></li>
-							) : (
-								sheetUsers.map(user =>(
-									<li key={user.name}>{user.name}
-										<FormBtn value={user.id}
-														 onClick={this.withdrawAccess}>Withdraw Access</FormBtn>
-									</li>
-								))
-							)}
-						</ul>
-					<form className="form-inline">
-	            <div className="form-group">
-	              <label htmlFor="sel1">To grant access to this sheet to another user, select another user from this list:</label>
-	              <select className="form-control" 
-	              				id="sel1" 
-	              				name="selectedUserId"
-	              				onChange={this.getSelectedUser}>
-	                {this.state.otherUsers.map((user) => 
-	                  <option key={user.id}
-	                  value={user.id}>{user.name}</option>
-	                )}
-	              </select>
-	            </div>
-	            <div className="btn-group ml-auto" role="group">
-	            <FormBtn onClick={this.grantAccess}>Invite</FormBtn>
-	          </div>
-	          <div className="btn-group ml-auto" role="group">
-	            <FormBtn onClick={this.viewSheet}>Go to sheet</FormBtn>
-	            <FormBtn onClick={this.deleteSheet}>Delete sheet</FormBtn>
-	          </div>
-	        </form>
+  render() {
+    const sheetUsers = this.filterSheetUsers();
+    return (
+      <div className="card">
+        <div className="card-header">
+          <h6>{this.props.sheetName}</h6>
         </div>
-			</div>
-		)
-	}
+          <div className="card-body">
+            <p>eliteSheets sheet ID: {this.props.sheetId}</p>
+            <p>Other users with access to this sheet:</p>
+            <ul>
+            {!sheetUsers.length ? (
+                <li><i>No other users have access to this sheet.</i></li>
+              ) : (
+                sheetUsers.map(user =>(
+                  <li key={user.name}>{user.name}
+                    <FormBtn value={user.id}
+                             onClick={this.withdrawAccess}>Withdraw Access</FormBtn>
+                  </li>
+                ))
+              )}
+            </ul>
+          <form className="form-inline">
+              <div className="form-group">
+                <label htmlFor="sel1">To grant access to this sheet to another user, select another user from this list:</label>
+                <select className="form-control" 
+                        id="sel1" 
+                        name="selectedUserId"
+                        onChange={this.getSelectedUser}>
+                  {this.state.otherUsers.map((user) => 
+                    <option key={user.id}
+                    value={user.id}>{user.name}</option>
+                  )}
+                </select>
+              </div>
+              <div className="btn-group ml-auto" role="group">
+              <FormBtn onClick={this.grantAccess}>Invite</FormBtn>
+            </div>
+            <div className="btn-group ml-auto" role="group">
+              <FormBtn onClick={this.viewSheet}>Go to sheet</FormBtn>
+              <FormBtn onClick={this.deleteSheet}>Delete sheet</FormBtn>
+            </div>
+          </form>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default CreatedSheet;

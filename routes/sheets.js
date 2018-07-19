@@ -341,7 +341,6 @@ router.get("/viewsheet/:sheetId/:userId", function(req, res) {
 										 'vendorNumber',
 										 'itemNumber',
 										 'creditNumber',
-										 'debitNumber',
 										 'totalBalance',
 										 'dueDate',
 										 'amountPastDue',

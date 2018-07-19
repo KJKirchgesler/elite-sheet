@@ -4,6 +4,7 @@ import API from "../../utils/API.js";
 import Table from "../../components/Table";
 import { Input, TextArea, FormBtn, FormBtnLeft, FormBtnRight } from "../../components/Form";
 import CreatedSheet from "../../components/CreatedSheet"
+import SharedSheet from "../../components/SharedSheet"
 
 class AccountInfo extends Component {
 
@@ -207,38 +208,32 @@ class AccountInfo extends Component {
                                   />
                   ))
                 )}
-
+                
                 </div>
               </div>
 
-          <div className="card mt-3">
-            <div className="card-body">
-              <h5 className="card-title">Other Sheets that I have access to:</h5>
-                <div className="card">
-                  <div className="card-body">
-                    <form className="form-inline">
-                      <h5 className="card-title">sheetName with Company</h5>
-                        <FormBtnRight>
-                          Go to Sheet
-                        </FormBtnRight>
-                    </form>    
-                  </div>
-                </div>
+          <h5 className="card-title">Shared Sheets</h5>
+              <div className="card">
+                <div className="card-body">
+                {!this.state.sharedSheets.length ? (
+                    <p><i>No one has shared sheets with you.</i></p>
+                ):(
+                  this.state.sharedSheets.map(sheet => (
+                    <SharedSheet key={sheet.Sheet.id}
+                                  sheetName={sheet.Sheet.name}
+                                  sheetId={sheet.Sheet.id}
+                                  sheetUsers={sheet.Sheet.User}
+                                  userId={this.state.userId}
+                                  />
+                  ))
+                )}
+         
 
-                <div className="card mt-2">
-                  <div className="card-body">
-                    <form className="form-inline">
-                      <h5 className="card-title">sheetName with Company</h5>
-                        <FormBtnRight>
-                          Go to Sheet
-                        </FormBtnRight>
-                    </form>
-                  </div>
+                
                 </div>
               </div>
-          
 
-            </div>
+
 
         
 
