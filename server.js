@@ -35,7 +35,7 @@ app.use(passport.authenticate('remember-me'))
 
 app.use(routes);
 
-db.sequelize.sync().then(function() {
+db.sequelize.sync({force: true}).then(function() {
 	server.listen(PORT, function() {
 		console.log("API Server now listening on PORT " + PORT)
 	});
