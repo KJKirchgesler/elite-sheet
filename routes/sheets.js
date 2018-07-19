@@ -203,21 +203,21 @@ router.post("/createtransaction", function(req, res) {
 	console.log(req.body);
 
 	//format for dummy data to submit via insomnia/postman:
-	// {
-	// 	"companyName": "Bob",
-	// 	"invoiceNumber": "002023",
-	// 	"vendorNumber": "23134",
-	// 	"itemNumber": 345634,
-	// 	"creditNumber": "34jk1343",
-	// 	"debitNumber": "afjk234234",
-	// 	"totalBalance": 123.23,
-	// 	"dueDate": "2018-07-11 13:38:58",
-	// 	"amountPastDue": "2018-07-11 13:38:58",
-	// 	"departmentName": "Sales",
-	// 	"locationName": "City of choice",
-	// 	"representativeName": "Bobby Jr",
-	// 	"SheetId": 1
-	// }
+	//   {
+	//   	"companyName": "Bob",
+	//   	"invoiceNumber": "002023",
+	//   	"vendorNumber": "23134",
+	//   	"itemNumber": 345634,
+	//   	"creditNumber": "34jk1343",
+	//   	"debitNumber": "afjk234234",
+	//   	"totalBalance": 123.23,
+	//   	"dueDate": "2018-07-11 13:38:58",
+	//   	"amountPastDue": "2018-07-11 13:38:58",
+	//   	"departmentName": "Sales",
+	//   	"locationName": "City of choice",
+	//   	"representativeName": "Bobby Jr",
+	//   	"SheetId": 1
+	//   }
 
 	//*When this is really working, companyName will be equivalent to the name of the user who is creating the transaction. So something like:
 	//let companyName = req.user.name
