@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import API from "../../utils/API.js"
-import BarChartComponent from "./BarChartComponent"
+import Nav from "../../components/nav";
+import API from "../../utils/API.js";
+import BarChartComponent from "./BarChartComponent";
+import socket from "../../utils/socketAPI";
 
 
 
@@ -11,7 +13,8 @@ class ViewChart extends Component {
     userEmail: "",
     userId: "",
     transactions: [],
-    collaborators: []
+    collaborators: [],
+    sheetData: {}
   }
 
   handleInputChange = event => {
@@ -97,65 +100,39 @@ class ViewChart extends Component {
   }
 
 
-
   componentDidMount() {
     this.getUserData();
     this.viewSheet();
     this.viewCollaborators();
+    this.getSheetData();
+    socket.on("transactionChanged", this.transChanged);
+  }
+
+  componentWillUnmount() {
+    socket.off("transactionChanged", this.transChanged);
+  }
+
+  deleteTransaction = event => {
+    let transactionData = {
+      sheetId: this.state.sheetData.id,
+      transactionId: "",//get this from button???
+      userId: this.state.userId
+    }
+
+    API.deleteTransaction(transactionData)
+    .then((res) => {
+      console.log("transaction deleted");
+      //this.viewSheet();
+    }).catch((err) => {
+      console.log(err);
+      alert("There was an error with the server. Please try again.")
+    })
   }
 
   render() {
     return (
       <div className="container">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand" href="/">
-            eliteSheets
-          </a>
-          <button
-            className="navbar-toggler"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-    
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <a className="nav-link" href="/">
-                  Home <span className="sr-only">(current)</span>
-                </a>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="/"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false">
-                  User
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="/login">
-                    Login
-                  </a>
-                  <a className="dropdown-item" href="/signup">
-                    Sign up
-                  </a>
-                  <div className="dropdown-divider" />
-                  <a className="dropdown-item" href="/accountinfo">
-                    Account Info
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        <Nav />
         <div className="jumbotron">
         <BarChartComponent transactions ={this.state.chartData}/>
       </div>

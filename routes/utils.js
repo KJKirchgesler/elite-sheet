@@ -32,6 +32,3 @@ function issueToken(userId, done) {
 		console.log(err);
 	})
 }
-
-//module.exports = randomString;
-
