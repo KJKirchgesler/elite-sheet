@@ -46,7 +46,7 @@ class ViewChart extends Component {
     let pathArray = window.location.pathname.split("/");
     let sheetId = pathArray[2];
     let userId = pathArray[3];
-
+    
     let sheetData = {
       sheetId: sheetId,
       userId: userId
@@ -55,16 +55,30 @@ class ViewChart extends Component {
     API.viewSheet(sheetData)
     .then((res) => {
       let transactions = res.data.Transaction;
+      let labels = [];
+      let datasets = [{
+        label: "Total Balance",
+        data: []
+      }];
+      transactions.forEach(t => {
+        labels.push(t.companyName);
+        datasets[0].data.push(t.totalBalance)
+      });
       this.setState({
-        transactions: transactions
+        transactions : transactions,
+        chartData:{
+          labels: labels,
+          datasets: datasets
+        }
       });
       console.log("here are the transactions for this sheet-------")
-      console.log(this.state.transactions);
+      console.log(this.state.chartData);
     }).catch((err) => {
       console.log(err);
       window.location.replace("/login");
     })
   }
+
 
   viewCollaborators = () => {
     let pathArray = window.location.pathname.split("/");
@@ -153,7 +167,7 @@ class ViewChart extends Component {
       <div className="container">
         <Nav />
         <div className="jumbotron">
-        <BarChartComponent />
+        <BarChartComponent transactions ={this.state.chartData}/>
       </div>
     </div>
     )}
