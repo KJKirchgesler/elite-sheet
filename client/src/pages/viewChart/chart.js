@@ -5,7 +5,6 @@ import BarChartComponent from "./BarChartComponent";
 import socket from "../../utils/socketAPI";
 
 
-
 class ViewChart extends Component {
 
   state = {
@@ -43,7 +42,6 @@ class ViewChart extends Component {
     })
   }
 
-  
   viewSheet = () => {
     let pathArray = window.location.pathname.split("/");
     let sheetId = pathArray[2];
@@ -74,12 +72,13 @@ class ViewChart extends Component {
         }
       });
       console.log("here are the transactions for this sheet-------")
-      console.log(this.state.transactions);
+      console.log(this.state.chartData);
     }).catch((err) => {
       console.log(err);
-      // window.location.replace("/login");
+      window.location.replace("/login");
     })
   }
+
 
   viewCollaborators = () => {
     let pathArray = window.location.pathname.split("/");
@@ -99,6 +98,40 @@ class ViewChart extends Component {
     });
   }
 
+  getSheetData = () => {
+    let pathArray = window.location.pathname.split("/");
+    let sheetId = pathArray[2];
+    
+    API.getSheetData(sheetId)
+    .then((res) => {
+      this.setState({
+        sheetData: res.data
+      });
+
+      console.log("here is the sheet data ----------")
+      console.log(this.state.sheetData);
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+  transChanged = (trans) => {
+    let pathArray = window.location.pathname.split("/");
+    let URLSheetId = pathArray[2];
+    
+    // console.log(URLSheetId);
+    // console.log(trans.sheetId);
+    // console.log(parseInt(trans.sheetId) == URLSheetId)
+
+    if (parseInt(trans.sheetId) == URLSheetId) {
+      console.log("match")
+      let updatedTransactions = this.state.transactions.push(trans)
+      this.setState({
+        transactions: updatedTransactions
+      })
+      alert("New transaction for this sheet");
+    }
+  }
 
   componentDidMount() {
     this.getUserData();
