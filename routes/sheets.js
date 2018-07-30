@@ -484,10 +484,3 @@ router.delete("/deletesheet/:sheetId/:userId/", function(req, res) {
 	})
 });
 module.exports = router;
-
-
-
-
-
-
-

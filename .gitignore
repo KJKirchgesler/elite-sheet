@@ -22,7 +22,7 @@ yarn-debug.log*
 yarn-error.log*
 
 #test files
-NYTimes-tests
+/testing
 
 #API keys
 API-key.js

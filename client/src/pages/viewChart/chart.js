@@ -130,6 +130,7 @@ class ViewChart extends Component {
         transactions: updatedTransactions
       })
       alert("New transaction for this sheet");
+      this.viewSheet();
     }
   }
 
